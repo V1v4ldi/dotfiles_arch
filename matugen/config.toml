@@ -1,0 +1,11 @@
+[config]
+prefer="darkness"
+
+[settings]
+mode = "default"
+scheme = "expressive"
+palette = "material"
+
+[templates.quickshell]
+input_path = '~/.config/matugen/templates/quickshellColor.json'
+output_path = '~/.config/quickshell/Core/ColorPalette.json'
