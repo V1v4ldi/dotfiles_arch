@@ -29,7 +29,7 @@ Singleton{
 		free -m | awk 'NR==2 {print $3}'; 
 		top -bn2 | grep 'Cpu(s)' | tail -1 | awk '{print 100 - $8}';
 		df -h / | awk 'NR==2 {print $5}' | sed 's/%//';
-		uptime -p | sed -e 's/up //; s/hours//; s/minutes//; s/,//' | awk {'print $1'}
+		uptime -p | sed -e 's/up //; s/hours//; s/minutes//; s/,//' | awk {'print $1'};
 		uptime -p | sed -e 's/up //; s/hours//; s/minutes//; s/,//' | awk {'print $2'};
 		whoami;"]
 
