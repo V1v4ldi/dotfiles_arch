@@ -13,7 +13,7 @@ Rectangle{
 	Rectangle{
 		id: background
 		anchors.fill: parent
-		color: Colors.on_secondary
+		color: Colors.primary_container
 		radius: 12
 		clip: true
 	}
@@ -30,8 +30,10 @@ Rectangle{
 			onClicked: settingsIpc.openSettings()
 
 			
-			Bluetooth{
+			ConnectionWidget{
 				id: btIcon
+				connectionIcon: Service.Bluetooth.bluetoothEnabled ? Icons.btConnect : Icons.btDisconnect
+				connectionText: Service.Bluetooth.deviceName
 			}
 		}
 

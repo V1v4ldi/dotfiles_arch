@@ -3,6 +3,7 @@ import qs.Widgets.controlCenter
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
+import qs.services as Service
 
 ColumnLayout{
 	id:root
@@ -47,9 +48,24 @@ ColumnLayout{
 			spacing: 15
 			anchors.centerIn: parent
 
-			Cpu{}
-			Ram{}
-			Disk{}
+			Usage{
+				id: cpu
+				usageIcon: Icons.cpuIcon
+				circleUsage: Service.SystemUsage.cpuUsage * 3.6
+				textUsage: "Cpu: " + Service.SystemUsage.cpuUsage + "%"
+			}
+			Usage{
+				id: ram
+				usageIcon: Icons.ramIcon
+				circleUsage: Service.SystemUsage.ramUsage * 3.6
+				textUsage: "Ram: " + Service.SystemUsage.ramUsage + "%"
+			}
+			Usage{
+				id: disk
+				usageIcon: Icons.diskIcon
+				circleUsage: Service.SystemUsage.diskUsage * 3.6
+				textUsage: "Disk: " + Service.SystemUsage.diskUsage + "%"
+			}
 		}
 	}
 }

@@ -3,6 +3,7 @@ import QtQuick
 import QtQuick.Layouts
 import qs.services as Service
 import qs.Widgets.bar
+import qs.Core
 
 Row {
 	id:audioRoot
@@ -36,7 +37,13 @@ Row {
 
 		]
 	
-		Mic{id: micWid}	
+		AudioWidget{
+			id: micWid
+			
+			text: Math.round(Service.Audio.micVolume * 100) + "%"
+			icon: Service.Audio.micMuted ? Icons.micMute : Icons.mic
+			visibility: !Service.Audio.micMuted
+		}	
 
 		MouseArea {
 			id: micAreaButton
@@ -71,7 +78,17 @@ Row {
 		anchors.verticalCenter: parent.verticalCenter
 
 	
-		Speaker{id:speakerWid}
+		AudioWidget{
+			id:speakerWid	
+
+			text: Math.round(Service.Audio.volume * 100) + "%"
+			icon: {
+				(Service.Audio?.muted ?? false) ? Icons.mute :
+				(Service.Audio?.volume * 100 ?? 0) <= 25 ? Icons.volumeLow :
+				(Service.Audio?.volume * 100 ?? 0) <= 50 ? Icons.volumeMed : Icons.volumeHigh
+			}
+			visibility: !Service.Audio.micMuted
+		}
 
 		MouseArea {
 			id: speakerAreaButton

@@ -3,6 +3,8 @@ import QtQuick.Layouts
 import Quickshell
 import Quickshell.Widgets
 import qs.Widgets.controlCenter
+import qs.Core
+import qs.services as Service
 
 Rectangle{
 	id:root
@@ -12,7 +14,7 @@ Rectangle{
 	Rectangle{
 		id: background
 		anchors.fill: parent
-		color: "red"
+		color: Colors.primary_container
 		radius: 12
 		clip: true
 	}
@@ -28,8 +30,10 @@ Rectangle{
 			cursorShape: Qt.PointingHandCursor
 			onClicked: console.log("wifi Icon")
 			
-			Wifi{
+			ConnectionWidget{
 				id: wifiIcon
+				connectionIcon: Service.Network.wifiEnabled ? Icons.wifiFull : Icons.wifiDisconnect
+				connectionText: Service.Network.networkName ?? "Not Connected"
 			}
 		}
 		Item{
@@ -40,7 +44,10 @@ Rectangle{
 			height: rightIcon.height
 			Layout.rightMargin: 15	
 			cursorShape: Qt.PointingHandCursor
-			onClicked: console.log("R wifi Icon")
+			onClicked: {
+				settingsIpc.openSettings()
+				ccIpc.openCC()
+			} 
 			
 			RightIcon{
 				id: rightIcon
