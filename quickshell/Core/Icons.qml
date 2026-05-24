@@ -75,4 +75,5 @@ QtObject {
 	readonly property string cpuIcon: ""
 	readonly property string ramIcon: ""
 	readonly property string diskIcon: "󰋊"
+	readonly property string displayIcon: "󰌢"
 }
