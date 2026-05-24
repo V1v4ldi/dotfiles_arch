@@ -8,11 +8,15 @@ RowLayout{
 	id: root
 	spacing:16
 
+	property alias connectionIcon: icon.text
+	property alias connectionText: connectedText.text
+
 	Rectangle{
 		width: 48
 		height: 48
 		radius: width / 2
 		Layout.alignment: Qt.AlignLeft
+		color: Colors.on_primary_container
 			
 		Text{
 			id: icon
@@ -20,9 +24,8 @@ RowLayout{
 
 			font.pixelSize:FontAndSizeRule.fontSize + 10
 			font.family: FontAndSizeRule.fontFamily
-			color: "black"
-			text: Service.Network.wifiEnabled ? Icons.wifiFull : Icons.wifiDisconnect
-			
+			color: Colors.on_secondary
+			text: root.connectionIcon		
 		}
 	}
 
@@ -31,8 +34,8 @@ RowLayout{
 		Layout.alignment: Qt.AlignVCenter
 		font.pixelSize:FontAndSizeRule.fontSize
 		font.family: FontAndSizeRule.fontFamily
-		color: "white"
+		color: Colors.on_surface
 
-		text: Service.Network.wifi?.name ?? "Not Connected"
+		text: root.connectionIcon
 	}
 }

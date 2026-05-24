@@ -10,7 +10,7 @@ RowLayout{
 		width: 48
 		height: 48
 		radius: width / 2
-		color: "white"
+		color: Colors.on_primary_container
 			
 		Text{
 			id: icon
@@ -18,7 +18,7 @@ RowLayout{
 
 			font.pixelSize:FontAndSizeRule.fontSize + 10
 			font.family: FontAndSizeRule.fontFamily
-			color: "black"
+			color: Colors.on_secondary
 			text: Icons.right
 		}
 	}

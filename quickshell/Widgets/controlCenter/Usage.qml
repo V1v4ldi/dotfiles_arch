@@ -2,10 +2,13 @@ import qs.Core
 import Quickshell
 import QtQuick
 import QtQuick.Shapes
-import qs.services as Service
 
 Rectangle{
 	id: root
+
+	property alias usageIcon: icon.text
+	property alias circleUsage: usage.sweepAngle
+	property alias textUsage: percentage.text
 
 	width: FontAndSizeRule.sysUsageBorderSize
 	height: FontAndSizeRule.sysUsageBorderSize
@@ -14,11 +17,11 @@ Rectangle{
 	color: "transparent"
 
 	Row{
-		id:ramRow
+		id:cpuRow
 		anchors.centerIn: parent
 
 		Column{
-			id:ramColumn
+			id:cpuColumn
 			anchors.verticalCenter: parent.verticalCenter
 
 			Rectangle{
@@ -33,7 +36,7 @@ Rectangle{
 					layer.samples: 4
 
 					ShapePath {
-						strokeColor: Colors.surface_container_low
+						strokeColor: "#2a4d27"
 						strokeWidth: 4
 						fillColor: "transparent"
         
@@ -51,32 +54,34 @@ Rectangle{
 						fillColor: "transparent"
 
 						PathAngleArc{
+							id: usage
 							centerX: shapeContainer.width / 2; centerY: shapeContainer.height / 2
 							radiusX: (shapeContainer.width / 2) - 10; radiusY: (shapeContainer.height / 2) - 10
 							startAngle: -90
-							sweepAngle: Service.SystemUsage.ramUsage * 3.6
+							sweepAngle: root.circleUsage
 						}
 					}
 
 					Text{
-						id: ramIcon
+						id: icon
 
 						anchors.centerIn:parent
 						font.family: FontAndSizeRule.fontFamily
 						font.pixelSize: FontAndSizeRule.iconSysSize
 						color: "#3bc431"
 
-						text: Icons.ramIcon
+						text: root.usageIcon
 					}
 				}
 			}
 			Text{
+				id: percentage
 				anchors.horizontalCenter: parent.horizontalCenter
 				font.family: FontAndSizeRule.fontFamily
 				font.pixelSize: FontAndSizeRule.sysUsageBorderSize / 10 + 2
 				color: "#e0e0e0"
 			
-				text: "Ram: " + Service.SystemUsage.ramUsage + "%"
+				text: root.percentage
 			}	
 		}
 		
@@ -84,3 +89,6 @@ Rectangle{
 		
 	}
 }
+/*
+
+
