@@ -41,6 +41,7 @@ Item {
 		
 		Close{
 			id: close
+			implicitHeight: settings.implicitHeight * 0.065
 			
 			anchors{ 
 				top:parent.top
@@ -61,6 +62,7 @@ Item {
 				Layout.fillHeight: true
 				Layout.preferredWidth: parent.width / 4
 				color: "transparent"
+				layoutHeight: parent.height * 0.075
 			}
 				
 			Rectangle{

@@ -6,7 +6,6 @@ import qs.Core
 Rectangle{
 	id: closeArea
 				
-	implicitHeight: 42
 	topRightRadius: 16
 	topLeftRadius: 16
 	border.pixelAligned: true
@@ -26,7 +25,7 @@ Rectangle{
 			anchors.left: parent.left
 			anchors.centerIn: parent
 			font.family: FontAndSizeRule.fontFamily
-			font.pixelSize: FontAndSizeRule.fontSize - 3
+			font.pixelSize: closeArea.implicitHeight * 0.35
 			color: Colors.on_error
 
 			text: Icons.close
@@ -52,7 +51,7 @@ Rectangle{
 			id: titleText
 			anchors.centerIn: parent
 			font.family: FontAndSizeRule.fontFamily
-			font.pixelSize: FontAndSizeRule.fontSize
+			font.pixelSize: closeArea.implicitHeight * 0.35
 			color: Colors.on_background
 
 			text: "Settings"
