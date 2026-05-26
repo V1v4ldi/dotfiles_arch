@@ -76,4 +76,5 @@ QtObject {
 	readonly property string ramIcon: ""
 	readonly property string diskIcon: "󰋊"
 	readonly property string displayIcon: "󰌢"
+	readonly property string themeIcon: ""
 }
