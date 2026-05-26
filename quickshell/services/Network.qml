@@ -9,54 +9,16 @@ Singleton {
 	property string ssid: ""
 	property string password: ""
 
-	property NetworkDevice networkDevice: null
-	
-	property NetworkDevice wifi: null
-	property NetworkDevice ethernet: null
-	
+	property var defaultNetwork: Networking.devices
+	property var devices: defaultNetwork.values
 	property bool wifiEnabled: Networking.wifiEnabled
+	
+	property var wiredType: devices.find(d => d.type == DeviceType.Wired)
+	property var wired: wiredType ? wiredType.networks.values : null
 
-	property var wifiList: wifi ? wifi.networks : []
-	property var wiredList: ethernet ? ethernet.networks : []
+	property var wifiType: devices.find(d => d.type == DeviceType.Wifi)
+	property var wifi: wifiType ? wifiType.networks.values : null //Wifi List
 
-
-
-	function updateVar() {
-		for(var i = 0; i < Networking.devices.values.length; i++){
-			var dev = Networking.devices.values[i]
-			if(dev.type === DeviceType.Wifi){
-				wifi = dev;
-			}
-
-			if(dev.type === DeviceType.Wired){
-				ethernet = dev;
-			}
-		}
-	}
-
-	Component.onCompleted: updateVar()
-
-	Connections{
-		target: Networking.devices
-		function onValuesChanged(){
-			network.updateVar()
-		}
-	}
-
+	property var connectedWifi: wifi.find(d => d.connected)
+	property string wifiName: connectedWifi ? connectedWifi.name : null
 }
-/* 
-
- 
-	onIsWifiEnabledChanged: {
-		if(!isWifiEnabled){
-			isScanning = false
-		}
-	}
-
-	onIsScanningChanged: {
-		if (isWifiEnabled) {
-			WifiDevice.scannerEnabled = isScanning
-		} else {
-			isScanning = false
-		}
-	}

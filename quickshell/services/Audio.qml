@@ -32,12 +32,10 @@ Singleton{
 
         function onVolumeChanged() {
 			let vol = defaultSink.audio.volume;
-			//Services.Osd.show("volume", vol)
 		}
 
         function onMutedChanged() {
 			let muted = defaultSink.audio.muted;
-			//Services.Osd.show("volume", vol)
         }
     }
 
@@ -47,12 +45,10 @@ Singleton{
 
         function onVolumeChanged() {
 			let vol = defaultSource.audio.volume;
-			//Services.Osd.show("volume", vol)
 		}
 
         function onMutedChanged() {
             let muted = defaultSource.audio.muted;
-            //Services.Osd.show("volume", vol)
         }
     }
 
@@ -70,7 +66,6 @@ Singleton{
             defaultSource.audio.muted = false;
             let val = Math.max(0, Math.min(1.5, to));
             defaultSource.audio.volume = val
-            //Services.Osd.show("volume", val * 100)
         }
 	}
 
@@ -79,7 +74,6 @@ Singleton{
 			if(defaultSource?.ready && defaultSource?.audio) {
 				defaultSource.audio.muted = false;
 				defaultSource.audio.volume = Math.min(1.5, defaultSource.audio.volume + 0.05)
-				//Services.Osd.show("volume", defaultSource.audio.volume)
 			}
 		}
 
@@ -87,7 +81,6 @@ Singleton{
 			if (defaultSink?.ready && defaultSink?.audio) {
 				defaultSink.audio.muted = false;
 				defaultSink.audio.volume = Math.min(1.5, defaultSink.audio.volume + 0.05)
-				//Services.Osd.show("volume", defaultSink.audio.volume)
 			}
 		}
 
@@ -98,7 +91,6 @@ Singleton{
 			if(defaultSource?.ready && defaultSource?.audio) {
 				defaultSource.audio.muted = false;
 				defaultSource.audio.volume = Math.max(0, defaultSource.audio.volume - 0.05)
-				//Services.Osd.show("volume", defaultSource.audio.volume)
 			}
 		}
 
@@ -106,7 +98,6 @@ Singleton{
 			if (defaultSink?.ready && defaultSink?.audio) {
 				defaultSink.audio.muted = false;
 				defaultSink.audio.volume = Math.max(0, defaultSink.audio.volume - 0.05)
-				//Services.Osd.show("volume", defaultSink.audio.volume)
 			}
 		}
 
@@ -116,14 +107,12 @@ Singleton{
 		if (audio == "Source") {
 			if(defaultSource?.ready && defaultSource?.audio) {
 				defaultSource.audio.muted = !defaultSource.audio.muted;
-				//Services.Osd.show("volume", defaultSource.audio.volume)
 			}
 		}
 
 		else if (audio == "Sink") {
 			if (defaultSink?.ready && defaultSink?.audio) {
 				defaultSink.audio.muted = !defaultSink.audio.muted;
-				//Services.Osd.show("volume", defaultSink.audio.volume)
 			}
 		}
 

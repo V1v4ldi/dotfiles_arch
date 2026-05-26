@@ -28,12 +28,12 @@ Rectangle{
 			height: wifiIcon.height
 			Layout.leftMargin: 15	
 			cursorShape: Qt.PointingHandCursor
-			onClicked: console.log("wifi Icon")
+			onClicked: {console.log("Tes")}
 			
 			ConnectionWidget{
 				id: wifiIcon
 				connectionIcon: Service.Network.wifiEnabled ? Icons.wifiFull : Icons.wifiDisconnect
-				connectionText: Service.Network.networkName ?? "Not Connected"
+				connectionText: Service.Network?.wifiName ?? "Not Connected"
 			}
 		}
 		Item{
