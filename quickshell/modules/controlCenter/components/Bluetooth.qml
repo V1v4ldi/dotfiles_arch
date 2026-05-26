@@ -4,6 +4,7 @@ import Quickshell
 import Quickshell.Widgets
 import qs.Widgets.controlCenter
 import qs.Core
+import qs.services as Service
 
 Rectangle{
 	id:root
