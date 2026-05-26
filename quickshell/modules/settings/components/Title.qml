@@ -30,49 +30,70 @@ Rectangle{
 				bottomMargin: 1
 			}
 
-			TitleWidget{
-				id: bluetooth
-				fSize: Quickshell.screens[0].width
-				titleIcon: Icons.btConnect
-				titleText: "Bluetooth"
-				Layout.preferredHeight: root.layoutHeight
+			Item{
+				id: connectionDD
 				Layout.fillWidth: true
+				Layout.preferredHeight: connectionCol.implicitHeight
 				
-				MouseArea{
+				property bool dd1: false
+
+				ColumnLayout{
+					id:connectionCol
+					spacing: 10
 					anchors.fill: parent
-					cursorShape: Qt.PointingHandCursor
-					onClicked: console.log("test")
+
+					TitleWidget{
+						id:connection
+						Layout.preferredHeight: root.layoutHeight
+						text: "Connection"
+
+						clickFun: function() {
+							connectionDD.dd1 = !connectionDD.dd1
+						}
+					}
+					
+					SubTitleWidget{
+						id: bluetooth
+						visible: connectionDD.dd1
+						titleIcon: Icons.btConnect
+						titleText: "Bluetooth"
+						Layout.preferredHeight: root.layoutHeight
+						
+						clickFun: function() {console.log("tes2")}
+					}
+
+					SubTitleWidget{
+						id: wifi
+						visible: connectionDD.dd1
+						titleIcon: Icons.wifiFull
+						titleText: "Wifi"
+						Layout.preferredHeight: root.layoutHeight
+				
+						clickFun: function() {console.log("tes2")}
+					}
 				}
+
+
 			}
 
-			TitleWidget{
-				id: wifi
-				fSize: Quickshell.screens[0].width
-				titleIcon: Icons.wifiFull
-				titleText: "Wifi"
-				Layout.preferredHeight: root.layoutHeight
-				Layout.fillWidth: true
-				
-				MouseArea{
-					anchors.fill: parent
-					cursorShape: Qt.PointingHandCursor
-					onClicked: console.log("test")
-				}
-			}
+			
 
-			TitleWidget{
+			SubTitleWidget{
 				id: display
-				fSize: Quickshell.screens[0].width
 				titleIcon: Icons.displayIcon
 				titleText: "Display Settings"
 				Layout.preferredHeight: root.layoutHeight
-				Layout.fillWidth: true
 				
-				MouseArea{
-					anchors.fill: parent
-					cursorShape: Qt.PointingHandCursor
-					onClicked: console.log("test")
-				}
+				clickFun: function() {console.log("tes2")}
+			}
+
+			SubTitleWidget{
+				id: theme
+				titleIcon: Icons.themeIcon
+				titleText: "Theme Settings"
+				Layout.preferredHeight: root.layoutHeight
+				
+				clickFun: function() {console.log("tes2")}
 			}
 		}
 	}
