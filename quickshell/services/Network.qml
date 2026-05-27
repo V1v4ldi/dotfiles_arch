@@ -19,6 +19,6 @@ Singleton {
 	property var wifiType: devices.find(d => d.type == DeviceType.Wifi)
 	property var wifi: wifiType ? wifiType.networks.values : null //Wifi List
 
-	property var connectedWifi: wifi.find(d => d.connected)
+	property var connectedWifi: wifi?.find(d => d.connected) ?? null
 	property string wifiName: connectedWifi ? connectedWifi.name : null
 }
