@@ -5,7 +5,7 @@ import qs.Core
 
 Rectangle{
 	id: root
-	Layout.fillWidth: true
+	clip: true
 	
 	property real fSize: Quickshell.screens[0].width
 	property var clickFun: ""
@@ -14,9 +14,12 @@ Rectangle{
 	
 	opacity: 0.85
 	color: Colors.primary_container
+	
+	implicitHeight: visible ? root.layoutHeight : 0
+	implicitWidth: parent.implicitWidth
 				
 	Row{
-		spacing: 28
+		spacing: 20
 
 		anchors{
 			left: parent.left
@@ -52,4 +55,6 @@ Rectangle{
 		cursorShape: Qt.PointingHandCursor
 		onClicked: root.clickFun()
 	}
+
+	Behavior on implicitHeight{ NumberAnimation{ duration: 350 ;easing.type: Easing.InOutQuad } }
 }

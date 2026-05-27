@@ -8,6 +8,7 @@ Rectangle{
 	id: root
 
 	property int layoutHeight: 0
+	property string dd1: ""
 
 	bottomLeftRadius: 16
 	border.color: Colors.outline
@@ -17,8 +18,9 @@ Rectangle{
 		id: flickable
 		anchors.fill: parent
 		boundsBehavior: Flickable.StopAtBounds
+		contentHeight: Column.height + 30
 
-		ColumnLayout{
+		Column{
 			spacing: 10
 
 			anchors{
@@ -30,60 +32,70 @@ Rectangle{
 				bottomMargin: 1
 			}
 
-			Item{
-				id: connectionDD
-				Layout.fillWidth: true
-				Layout.preferredHeight: connectionCol.implicitHeight
 				
-				property bool dd1: false
+			TitleWidget{
+				id:connection
+				anchors.left: parent.left
+				anchors.right: parent.right
+				layoutHeight: root.layoutHeight
+				icon: Icons.connection
+				text: "Connection"
 
-				ColumnLayout{
-					id:connectionCol
-					spacing: 10
-					anchors.fill: parent
-
-					TitleWidget{
-						id:connection
-						Layout.preferredHeight: root.layoutHeight
-						text: "Connection"
-
-						clickFun: function() {
-							connectionDD.dd1 = !connectionDD.dd1
-						}
-					}
-					
-					SubTitleWidget{
-						id: bluetooth
-						visible: connectionDD.dd1
-						titleIcon: Icons.btConnect
-						titleText: "Bluetooth"
-						Layout.preferredHeight: root.layoutHeight
-						
-						clickFun: function() {console.log("tes2")}
-					}
-
-					SubTitleWidget{
-						id: wifi
-						visible: connectionDD.dd1
-						titleIcon: Icons.wifiFull
-						titleText: "Wifi"
-						Layout.preferredHeight: root.layoutHeight
-				
-						clickFun: function() {console.log("tes2")}
+				clickFun: function() {
+					if(root.dd1 != "conn"){
+						root.dd1 = "conn"
+					} else {
+						root.dd1 = ""
 					}
 				}
-
-
 			}
 
-			
+			SubTitleWidget{
+				id: bluetooth
+				titleIcon: Icons.btConnect
+				titleText: "Bluetooth"
+				implicitHeight: root.dd1 == "conn" ? root.layoutHeight : 0
+				implicitWidth: parent.implicitWidth
+				
+				clickFun: function() {console.log("tes2")}
+			}
+
+			SubTitleWidget{
+				id: wifi
+				titleIcon: Icons.wifiFull
+				titleText: "Wifi"
+				implicitHeight: root.dd1 == "conn" ? root.layoutHeight : 0
+				implicitWidth: parent.implicitWidth
+		
+				clickFun: function() {console.log("tes2")}
+			}
+				
+				
+			TitleWidget{
+				id:personalization
+				anchors.left: parent.left
+				anchors.right: parent.right
+				layoutHeight: root.layoutHeight	
+				icon: Icons.user
+				text: "Personalization"
+
+				clickFun: function() {	
+
+					if(root.dd1 != "personal"){
+						root.dd1 = "personal"
+					} else {
+						root.dd1 = ""
+					}
+				}
+			}
 
 			SubTitleWidget{
 				id: display
 				titleIcon: Icons.displayIcon
 				titleText: "Display Settings"
-				Layout.preferredHeight: root.layoutHeight
-				
+				implicitHeight: root.dd1 == "personal" ? root.layoutHeight : 0
+				implicitWidth: parent.implicitWidth
+		
 				clickFun: function() {console.log("tes2")}
 			}
 
@@ -91,8 +103,9 @@ Rectangle{
 				id: theme
 				titleIcon: Icons.themeIcon
 				titleText: "Theme Settings"
-				Layout.preferredHeight: root.layoutHeight
-				
+				implicitHeight: root.dd1 == "personal" ? root.layoutHeight : 0
+				implicitWidth: parent.implicitWidth
+		
 				clickFun: function() {console.log("tes2")}
 			}
 		}

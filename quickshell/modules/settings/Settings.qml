@@ -13,7 +13,7 @@ Item {
 
 	onOpenedChanged: {
 		if(opened) {
-			visible = true
+			root.visible = true
 			settings.y = -settings.height
 			openAnim.start()
 		} else {
@@ -28,7 +28,6 @@ Item {
 
 	Rectangle{
 		id: settings 
-		layer.enabled: true
 
 		implicitWidth: Quickshell.screens[0].width * 0.65
 		implicitHeight: Quickshell.screens[0].height * 0.65
@@ -50,7 +49,7 @@ Item {
 			}
 		}
 
-		RowLayout{
+		Row{
 			anchors.top: close.bottom
 			anchors.left: parent.left
 			anchors.right: parent.right
@@ -59,16 +58,16 @@ Item {
 
 			Title{
 				id:title
-				Layout.fillHeight: true
-				Layout.preferredWidth: parent.width / 4
+				implicitHeight: parent.height
+				implicitWidth: parent.width / 4
 				color: "transparent"
 				layoutHeight: parent.height * 0.075
 			}
 				
 			Rectangle{
 				id:content
-				Layout.fillHeight: true
-				Layout.fillWidth: true
+				implicitHeight: parent.height
+				implicitWidth: parent.width - title.width
 				color: "transparent"
 				bottomRightRadius: 16
 			}
@@ -81,7 +80,7 @@ Item {
 		
 		NumberAnimation{
 			target: settings; property: "y"
-			from: -settings.height; to: (Quickshell.screens[0].height / 2) - (settings.height / 2); duration: 280; easing.type: Easing.InCubic
+			from: -settings.height; to: (Quickshell.screens[0].height / 2) - (settings.height / 2); duration: 280; easing.type: Easing.InOutCubic
 		}
 	}
 
@@ -90,7 +89,7 @@ Item {
 		
 		NumberAnimation{
 			target: settings; property: "y"
-			from: (Quickshell.screens[0].height / 2) - (settings.height / 2); to: Quickshell.screens[0].height; duration: 280; easing.type: Easing.InCubic
+			from: (Quickshell.screens[0].height / 2) - (settings.height / 2); to: Quickshell.screens[0].height; duration: 280; easing.type: Easing.InOutCubic
 		}
 	}
 }
