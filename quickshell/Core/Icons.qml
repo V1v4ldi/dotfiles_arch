@@ -16,6 +16,9 @@ QtObject {
 	readonly property string btConnect: ""
 	readonly property string btDisconnect: "󰂲"
 	
+	readonly property string connection: ""
+	readonly property string user: ""
+	
 	readonly property string brightLow: "󰃝"
 	readonly property string brightMed: "󰃟"
 	readonly property string brightHigh: "󰃠"
