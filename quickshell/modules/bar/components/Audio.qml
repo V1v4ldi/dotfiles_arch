@@ -87,7 +87,7 @@ Row {
 				(Service.Audio?.volume * 100 ?? 0) <= 25 ? Icons.volumeLow :
 				(Service.Audio?.volume * 100 ?? 0) <= 50 ? Icons.volumeMed : Icons.volumeHigh
 			}
-			visibility: !Service.Audio.micMuted
+			visibility: !Service.Audio.muted
 		}
 
 		MouseArea {
