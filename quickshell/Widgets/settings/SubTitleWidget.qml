@@ -9,11 +9,12 @@ Rectangle{
 	
 	property real fSize: Quickshell.screens[0].width
 	property var clickFun: ""
+	property bool active: false
 	property alias titleIcon: icon.text 
 	property alias titleText: text.text
-	
+
 	opacity: 0.85
-	color: Colors.primary_container
+	color: active ? Colors.primary_container : "transparent"
 	
 	implicitHeight: visible ? root.layoutHeight : 0
 	implicitWidth: parent.implicitWidth
@@ -49,6 +50,7 @@ Rectangle{
 			text: root.titleText
 		}
 	}
+
 	MouseArea{
 		id:mousee
 		anchors.fill: parent

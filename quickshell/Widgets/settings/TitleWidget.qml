@@ -5,10 +5,11 @@ import qs.Core
 
 Rectangle{
 	id:root
-	color: Colors.primary_container
+	color: active ? Colors.primary_container : "transparent"
 
 	property alias text:text.text
 	property alias icon:icon.text
+	property bool active: false
 	property int layoutHeight: 0
 	property var clickFun: ""
 
