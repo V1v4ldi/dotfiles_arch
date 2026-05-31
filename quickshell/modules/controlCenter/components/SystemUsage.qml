@@ -12,12 +12,13 @@ ColumnLayout{
 	
 	Rectangle{
 		id: profile
-		color: "transparent"
+		color: Qt.alpha(Colors.on_primary, 0.4)
 		Layout.fillWidth: true
 		height: profileRow.height + 40
 		radius: 10
 		border.color: Colors.outline
 		border.width: 2
+
 		RowLayout{
 			id: profileRow
 			spacing: 20
@@ -33,10 +34,9 @@ ColumnLayout{
 		}
 	}
 	
-
 	Rectangle{
 		id: usage
-		color: "transparent"
+		color: Qt.alpha(Colors.on_primary, 0.4)
 		Layout.fillWidth: true
 		height: usageRow.height + 20
 		radius: 10

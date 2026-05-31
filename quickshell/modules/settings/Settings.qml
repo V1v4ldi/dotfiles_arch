@@ -10,6 +10,7 @@ Item {
 	visible: opened
 
 	property bool opened: false
+	property alias page: title.page
 
 	onOpenedChanged: {
 		if(opened) {
@@ -62,14 +63,16 @@ Item {
 				implicitWidth: parent.width / 4
 				color: "transparent"
 				layoutHeight: parent.height * 0.075
+				page: root.page
 			}
 				
-			Rectangle{
+			Content{
 				id:content
 				implicitHeight: parent.height
 				implicitWidth: parent.width - title.width
 				color: "transparent"
 				bottomRightRadius: 16
+				page: root.page
 			}
 
 		}

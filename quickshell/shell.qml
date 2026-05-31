@@ -72,6 +72,7 @@ ShellRoot {
 			anchors.fill: parent
 			sourceComponent: Settings{
 				id: settings
+				page: ""
 			}
 			focus: true
 		}
@@ -103,12 +104,16 @@ ShellRoot {
 	IpcHandler{
 		id: settingsIpc
 		target: "settings"
-		function openSettings():void {
+		function openSettings(x: string):void {
 			if(!settingsLoader.active) {
 				settingsLoader.active = true
 
 				Qt.callLater(() => {
-					if(settingsLoader.item) settingsLoader.item.opened = true
+					if(settingsLoader.item) {
+						settingsLoader.item.opened = true
+						settingsLoader.item.page = x
+						console.log(settings.page)
+					}
 				})
 			} else {
 				settingsLoader.item.opened = !settingsLoader.item.opened;

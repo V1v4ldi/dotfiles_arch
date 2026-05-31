@@ -79,12 +79,14 @@ Item {
 					}
 
 					Bluetooth{
+						id: bt
 						Layout.fillWidth: true
 						Layout.leftMargin: 30
 						Layout.rightMargin: 30
 					}
 
 					Network{
+						id:wf
 						Layout.fillWidth: true
 						Layout.leftMargin: 30
 						Layout.rightMargin: 30
@@ -92,33 +94,31 @@ Item {
 				}
 			}
 		}
+	}
 
-		//Animation
-		ParallelAnimation{
-			id:openAnim
-			NumberAnimation{
-				target: scrim; property: "opacity"
-				to:0.085; duration: 280; easing.type: Easing.InCubic
-			}
-			NumberAnimation{
-				target: ccRoot; property: "x"
-				from: Quickshell.screens[0].width; to: Quickshell.screens[0].width - controlCenterWidth; duration: 280; easing.type: Easing.InCubic
-				
-			}
+	//Animation
+	ParallelAnimation{
+		id:openAnim
+		NumberAnimation{
+			target: scrim; property: "opacity"
+			to:0.085; duration: 280; easing.type: Easing.InCubic
 		}
-
-		ParallelAnimation{
-			id:closeAnim
-			NumberAnimation{
-				target: scrim; property: "opacity"
-				to:0; duration: 280; easing.type: Easing.InCubic
-			}
-			NumberAnimation{
-				target: ccRoot; property: "x"
-				from: Quickshell.screens[0].width - controlCenterWidth; to: Quickshell.screens[0].width; duration: 280; easing.type: Easing.InCubic
-			}
+		NumberAnimation{
+			target: ccRoot; property: "x"
+			from: Quickshell.screens[0].width; to: Quickshell.screens[0].width - controlCenterWidth; duration: 280; easing.type: Easing.InCubic
+			
 		}
+	}
 
-
+	ParallelAnimation{
+		id:closeAnim
+		NumberAnimation{
+			target: scrim; property: "opacity"
+			to:0; duration: 280; easing.type: Easing.InCubic
+		}
+		NumberAnimation{
+			target: ccRoot; property: "x"
+			from: Quickshell.screens[0].width - controlCenterWidth; to: Quickshell.screens[0].width; duration: 280; easing.type: Easing.InCubic
+		}
 	}
 }

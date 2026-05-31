@@ -10,6 +10,7 @@ Rectangle{
 	id:root
 	height: 60
 	color: "transparent"
+	property string page: ""
 
 	Rectangle{
 		id: background
@@ -30,7 +31,6 @@ Rectangle{
 			cursorShape: Qt.PointingHandCursor
 			onClicked: settingsIpc.openSettings()
 
-			
 			ConnectionWidget{
 				id: btIcon
 				connectionIcon: Service.Bluetooth.bluetoothEnabled ? Icons.btConnect : Icons.btDisconnect
@@ -48,7 +48,7 @@ Rectangle{
 			Layout.rightMargin: 15	
 			cursorShape: Qt.PointingHandCursor
 			onClicked: {
-				settingsIpc.openSettings()
+				settingsIpc.openSettings("bt")
 				ccIpc.openCC()
 			}
 			
@@ -56,6 +56,5 @@ Rectangle{
 				id: rightIcon
 			}
 		}
-		
 	}
 }

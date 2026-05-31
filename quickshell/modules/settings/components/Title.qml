@@ -9,10 +9,9 @@ Rectangle{
 
 	property int layoutHeight: 0
 	property string dd1: ""
+	property string page: ""
 
 	bottomLeftRadius: 16
-	border.color: Colors.outline
-	border.pixelAligned: true
 
 	Flickable{
 		id: flickable
@@ -40,12 +39,14 @@ Rectangle{
 				layoutHeight: root.layoutHeight
 				icon: Icons.connection
 				text: "Connection"
+				active: root.dd1 == "conn" ?? false
 
 				clickFun: function() {
 					if(root.dd1 != "conn"){
 						root.dd1 = "conn"
 					} else {
 						root.dd1 = ""
+						root.page = ""
 					}
 				}
 			}
@@ -56,8 +57,9 @@ Rectangle{
 				titleText: "Bluetooth"
 				implicitHeight: root.dd1 == "conn" ? root.layoutHeight : 0
 				implicitWidth: parent.implicitWidth
+				active: root.page == "bt" ?? false
 				
-				clickFun: function() {console.log("tes2")}
+				clickFun: function() {root.page == "bt" ? root.page = "" : root.page = "bt"}
 			}
 
 			SubTitleWidget{
@@ -66,8 +68,9 @@ Rectangle{
 				titleText: "Wifi"
 				implicitHeight: root.dd1 == "conn" ? root.layoutHeight : 0
 				implicitWidth: parent.implicitWidth
+				active: root.page == "wf" ?? false
 		
-				clickFun: function() {console.log("tes2")}
+				clickFun: function() {root.page == "wf" ? root.page = "" : root.page = "wf"}
 			}
 				
 				
@@ -78,13 +81,14 @@ Rectangle{
 				layoutHeight: root.layoutHeight	
 				icon: Icons.user
 				text: "Personalization"
+				active: root.dd1 == "personal" ?? false
 
 				clickFun: function() {	
-
 					if(root.dd1 != "personal"){
 						root.dd1 = "personal"
 					} else {
 						root.dd1 = ""
+						root.page = ""
 					}
 				}
 			}
@@ -95,8 +99,9 @@ Rectangle{
 				titleText: "Display Settings"
 				implicitHeight: root.dd1 == "personal" ? root.layoutHeight : 0
 				implicitWidth: parent.implicitWidth
+				active: root.page == "display" ?? false
 		
-				clickFun: function() {console.log("tes2")}
+				clickFun: function() {root.page == "display" ? root.page = "" : root.page = "display"}
 			}
 
 			SubTitleWidget{
@@ -105,8 +110,9 @@ Rectangle{
 				titleText: "Theme Settings"
 				implicitHeight: root.dd1 == "personal" ? root.layoutHeight : 0
 				implicitWidth: parent.implicitWidth
+				active: root.page == "theme" ?? false
 		
-				clickFun: function() {console.log("tes2")}
+				clickFun: function() {root.page == "theme" ? root.page = "" : root.page = "theme"}
 			}
 		}
 	}

@@ -1,7 +1,6 @@
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
-import Quickshell.Widgets
 import qs.Widgets.controlCenter
 import qs.Core
 import qs.services as Service
@@ -10,6 +9,7 @@ Rectangle{
 	id:root
 	height: 60
 	color: "transparent"
+	property string page: ""
 
 	Rectangle{
 		id: background
@@ -23,7 +23,7 @@ Rectangle{
 		id: wifiRow
 		anchors.fill: parent
 		
-		MouseArea{	
+		MouseArea{
 			width: wifiIcon.width
 			height: wifiIcon.height
 			Layout.leftMargin: 15	
@@ -33,7 +33,7 @@ Rectangle{
 			ConnectionWidget{
 				id: wifiIcon
 				connectionIcon: Service.Network.wifiEnabled ? Icons.wifiFull : Icons.wifiDisconnect
-				connectionText: Service.Network?.wifiName ?? "Not Connected"
+				connectionText: Service.Network?.wifiName
 			}
 		}
 		Item{
@@ -45,7 +45,7 @@ Rectangle{
 			Layout.rightMargin: 15	
 			cursorShape: Qt.PointingHandCursor
 			onClicked: {
-				settingsIpc.openSettings()
+				settingsIpc.openSettings("wf")
 				ccIpc.openCC()
 			} 
 			
