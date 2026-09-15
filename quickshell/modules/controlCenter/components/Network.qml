@@ -14,7 +14,7 @@ Rectangle{
 	Rectangle{
 		id: background
 		anchors.fill: parent
-		color: Colors.primary_container
+		color: Qt.alpha(Colors.on_primary, 0.1)
 		radius: 12
 		clip: true
 	}

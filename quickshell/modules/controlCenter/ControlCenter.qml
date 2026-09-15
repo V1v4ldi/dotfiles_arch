@@ -44,8 +44,7 @@ Item {
 	Rectangle{
 		id: ccRoot
 		width: controlCenterWidth
-		height: parent.height - topBarHeight
-		y: topBarHeight
+		height: parent.height
 		x: Quickshell.screens[0].width
 
 		layer.enabled:true
@@ -78,18 +77,39 @@ Item {
 						Layout.rightMargin: 30
 					}
 
-					Bluetooth{
-						id: bt
+					Rectangle{
+						id: connContainer
+						
+						color: Qt.alpha(Colors.on_primary, 0.4)
+						
 						Layout.fillWidth: true
+						height: connColumn.height + 10
+						Layout.alignment: Qt.AlignHCenter
 						Layout.leftMargin: 30
 						Layout.rightMargin: 30
-					}
 
-					Network{
-						id:wf
-						Layout.fillWidth: true
-						Layout.leftMargin: 30
-						Layout.rightMargin: 30
+						ColumnLayout{
+							id:connColumn
+							spacing: 18
+							width:parent.width
+
+							Bluetooth{
+								id: bt
+								Layout.topMargin:10
+								Layout.fillWidth: true
+								Layout.leftMargin: 5
+								Layout.rightMargin: 5
+							}
+
+							Network{
+								id:wf
+								Layout.fillWidth: true
+								Layout.leftMargin: 5
+								Layout.rightMargin: 5
+							}
+						}
+
+						
 					}
 				}
 			}

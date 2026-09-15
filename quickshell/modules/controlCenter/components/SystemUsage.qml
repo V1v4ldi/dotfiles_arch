@@ -16,8 +16,6 @@ ColumnLayout{
 		Layout.fillWidth: true
 		height: profileRow.height + 40
 		radius: 10
-		border.color: Colors.outline
-		border.width: 2
 
 		RowLayout{
 			id: profileRow
@@ -40,8 +38,6 @@ ColumnLayout{
 		Layout.fillWidth: true
 		height: usageRow.height + 20
 		radius: 10
-		border.color: Colors.outline
-		border.width: 2
 
 		RowLayout{
 			id: usageRow
