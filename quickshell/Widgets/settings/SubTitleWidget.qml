@@ -18,6 +18,10 @@ Rectangle{
 	
 	implicitHeight: visible ? root.layoutHeight : 0
 	implicitWidth: parent.implicitWidth
+
+	anchors.leftMargin: 16
+	anchors.rightMargin: 16
+	radius:16
 				
 	Row{
 		spacing: 20

@@ -13,9 +13,13 @@ Rectangle{
 	property int layoutHeight: 0
 	property var clickFun: ""
 
-	implicitHeight: root.layoutHeight
+	implicitHeight: root.layoutHeight	
+	anchors.leftMargin: 16
+	anchors.rightMargin: 16
+	radius: 16
 	
 	Row{
+		leftPadding: 24
 		spacing: 20
 
 		anchors{
