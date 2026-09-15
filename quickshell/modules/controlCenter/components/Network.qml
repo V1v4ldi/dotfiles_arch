@@ -9,7 +9,7 @@ Rectangle{
 	id:root
 	height: 60
 	color: "transparent"
-	property string page: ""
+	property string dd1: ""
 
 	Rectangle{
 		id: background

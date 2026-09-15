@@ -10,7 +10,7 @@ Rectangle{
 	id:root
 	height: 60
 	color: "transparent"
-	property string page: ""
+	property string dd1: ""
 
 	Rectangle{
 		id: background
@@ -48,7 +48,7 @@ Rectangle{
 			Layout.rightMargin: 15	
 			cursorShape: Qt.PointingHandCursor
 			onClicked: {
-				settingsIpc.openSettings("bt")
+				settingsIpc.openSettings("conn")
 				ccIpc.openCC()
 			}
 			
