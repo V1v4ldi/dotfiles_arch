@@ -72,7 +72,7 @@ ShellRoot {
 			anchors.fill: parent
 			sourceComponent: Settings{
 				id: settings
-				page: ""
+				dd1: ""
 			}
 			focus: true
 		}
@@ -111,8 +111,7 @@ ShellRoot {
 				Qt.callLater(() => {
 					if(settingsLoader.item) {
 						settingsLoader.item.opened = true
-						settingsLoader.item.page = x
-						console.log(settings.page)
+						settingsLoader.item.dd1 = x
 					}
 				})
 			} else {
