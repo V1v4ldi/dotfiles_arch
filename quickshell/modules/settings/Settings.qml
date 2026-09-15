@@ -10,7 +10,7 @@ Item {
 	visible: opened
 
 	property bool opened: false
-	property alias page: title.page
+	property alias dd1: title.dd1
 
 	onOpenedChanged: {
 		if(opened) {
@@ -33,15 +33,14 @@ Item {
 		implicitWidth: Quickshell.screens[0].width * 0.65
 		implicitHeight: Quickshell.screens[0].height * 0.65
 		radius: 16
-		opacity: 0.85
 		border.color: Colors.outline
 		y: -height
 		x: (Quickshell.screens[0].width / 2) - (settings.implicitWidth / 2)
-		color: Colors.background
-		
+		color: Qt.alpha(Colors.background, 0.85)
+
 		Close{
 			id: close
-			implicitHeight: settings.implicitHeight * 0.065
+			implicitHeight: settings.implicitHeight * 0.095
 			
 			anchors{ 
 				top:parent.top
@@ -61,9 +60,9 @@ Item {
 				id:title
 				implicitHeight: parent.height
 				implicitWidth: parent.width / 4
-				color: "transparent"
+				color: Qt.alpha(Colors.on_background, 0.05)
 				layoutHeight: parent.height * 0.075
-				page: root.page
+				dd1: root.dd1
 			}
 				
 			Content{
@@ -72,7 +71,7 @@ Item {
 				implicitWidth: parent.width - title.width
 				color: "transparent"
 				bottomRightRadius: 16
-				page: root.page
+				dd1: root.dd1
 			}
 
 		}

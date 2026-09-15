@@ -4,64 +4,37 @@ import qs.components.settings
 
 Rectangle{
 	id:root
-	property string page: ""
+	property string dd1: ""
 	property int margin: root.width * 0.065
+	
 	Loader{
-		id: bluetooth
-		active: root.page == "bt" ?? false
+		id: connection 
+		active: root.dd1 == "conn" ?? false
 		anchors.fill: parent
-		sourceComponent: Bluetooth{
+		sourceComponent: Connection{
 			id: bt	
 			
 			anchors{
-				left: parent.left
-				right: parent.right
+				fill: parent
 				leftMargin: root.margin
 				rightMargin: root.margin
+				bottomMargin: root.margin * 0.1
 			}
 		}
 	}
-	Loader{
-		id: wifi
-		active: root.page == "wf" ?? false
-		anchors.fill: parent
-		sourceComponent: Wifi{
-			id: wf
 
-			anchors{
-				left: parent.left
-				right: parent.right
-				leftMargin: root.margin
-				rightMargin: root.margin
-			}
-		}
-	}
 	Loader{
-		id: display
-		active: root.page == "display" ?? false
+		id: personal
+		active: root.dd1 == "personal" ?? false
 		anchors.fill: parent
-		sourceComponent: Display{
-			id: display
-
-			anchors{
-				left: parent.left
-				right: parent.right
-				leftMargin: root.margin
-				rightMargin: root.margin
-			}
-		}
-	}
-	Loader{
-		id: theme
-		active: root.page == "theme" ?? false
-		anchors.fill: parent
-		sourceComponent: Theme{
+		sourceComponent: Personalization{
 			id: theme
+
 			anchors{
-				left: parent.left
-				right: parent.right
+				fill: parent
 				leftMargin: root.margin
 				rightMargin: root.margin
+				bottomMargin: root.margin * 0.1
 			}
 		}
 	}

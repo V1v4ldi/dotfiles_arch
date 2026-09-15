@@ -16,8 +16,10 @@ Rectangle{
 	Flickable{
 		id: flickable
 		anchors.fill: parent
+		anchors.topMargin: 8
 		boundsBehavior: Flickable.StopAtBounds
 		contentHeight: Column.height + 30
+		clip:true
 
 		Column{
 			spacing: 10
@@ -46,33 +48,9 @@ Rectangle{
 						root.dd1 = "conn"
 					} else {
 						root.dd1 = ""
-						root.page = ""
 					}
 				}
 			}
-
-			SubTitleWidget{
-				id: bluetooth
-				titleIcon: Icons.btConnect
-				titleText: "Bluetooth"
-				implicitHeight: root.dd1 == "conn" ? root.layoutHeight : 0
-				implicitWidth: parent.implicitWidth
-				active: root.page == "bt" ?? false
-				
-				clickFun: function() {root.page == "bt" ? root.page = "" : root.page = "bt"}
-			}
-
-			SubTitleWidget{
-				id: wifi
-				titleIcon: Icons.wifiFull
-				titleText: "Wifi"
-				implicitHeight: root.dd1 == "conn" ? root.layoutHeight : 0
-				implicitWidth: parent.implicitWidth
-				active: root.page == "wf" ?? false
-		
-				clickFun: function() {root.page == "wf" ? root.page = "" : root.page = "wf"}
-			}
-				
 				
 			TitleWidget{
 				id:personalization
@@ -88,31 +66,8 @@ Rectangle{
 						root.dd1 = "personal"
 					} else {
 						root.dd1 = ""
-						root.page = ""
 					}
 				}
-			}
-
-			SubTitleWidget{
-				id: display
-				titleIcon: Icons.displayIcon
-				titleText: "Display Settings"
-				implicitHeight: root.dd1 == "personal" ? root.layoutHeight : 0
-				implicitWidth: parent.implicitWidth
-				active: root.page == "display" ?? false
-		
-				clickFun: function() {root.page == "display" ? root.page = "" : root.page = "display"}
-			}
-
-			SubTitleWidget{
-				id: theme
-				titleIcon: Icons.themeIcon
-				titleText: "Theme Settings"
-				implicitHeight: root.dd1 == "personal" ? root.layoutHeight : 0
-				implicitWidth: parent.implicitWidth
-				active: root.page == "theme" ?? false
-		
-				clickFun: function() {root.page == "theme" ? root.page = "" : root.page = "theme"}
 			}
 		}
 	}

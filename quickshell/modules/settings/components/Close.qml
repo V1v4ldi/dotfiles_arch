@@ -2,21 +2,28 @@ import Quickshell
 import QtQuick
 import QtQuick.Layouts
 import qs.Core
+import qs.Widgets.settings
 
-Rectangle{
+Item{
 	id: closeArea
 				
-	topRightRadius: 16
-	topLeftRadius: 16
-	border.pixelAligned: true
-	border.color: Colors.outline
-	color: "transparent"
-
+	TitleWidget{
+		id:settingsTitle
+		width: parent.width / 4
+		height: parent.height
+		anchors.leftMargin:0
+		anchors.rightMargin:0
+		radius: 0
+		icon: Icons.setting
+		text: "Settings"
+		color: Qt.alpha(Colors.on_background, 0.05)
+	}
+	
 	Rectangle{
 		implicitWidth: 20
 		implicitHeight: 20
 		radius: implicitWidth / 2
-		anchors.rightMargin: 16
+		anchors.rightMargin: 32
 		anchors.right: parent.right
 		anchors.verticalCenter: parent.verticalCenter
 		color: Colors.error
@@ -25,7 +32,7 @@ Rectangle{
 			anchors.left: parent.left
 			anchors.centerIn: parent
 			font.family: FontAndSizeRule.fontFamily
-			font.pixelSize: closeArea.implicitHeight * 0.35
+			font.pixelSize: closeArea.implicitHeight * 0.25
 			color: Colors.on_error
 
 			text: Icons.close
@@ -38,24 +45,4 @@ Rectangle{
 			onClicked: root.close()
 		}
 	}
-
-	Rectangle{
-		implicitWidth: titleText.width + 8	
-		implicitHeight: parent.height
-		radius: 10
-		anchors.leftMargin: 8
-		anchors.left: parent.left
-		color: "transparent"
-
-		Text{
-			id: titleText
-			anchors.centerIn: parent
-			font.family: FontAndSizeRule.fontFamily
-			font.pixelSize: closeArea.implicitHeight * 0.35
-			color: Colors.on_background
-
-			text: "Settings"
-		}
-	}
-				
 }
