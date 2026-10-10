@@ -1,0 +1,20 @@
+module qs.Widgets
+
+AudioWid 1.0 AudioWid.qml
+
+AppLauncherWid 1.0 ./bar/AppLauncher.qml
+BatteryWid 1.0 ./bar/Battery.qml
+BrightnessWid 1.0 ./bar/Brightness.qml
+ClockWid 1.0 ./bar/Clock.qml
+ControlCenterWid 1.0 ./bar/ControlCenter.qml
+SettingsWid 1.0 ./bar/Settings.qml
+TempWid 1.0 ./bar/Temp.qml
+
+ConnectionWid 1.0 ./controlCenter/ConnectionWidget.qml
+ProfileWid 1.0 ./controlCenter/Profile.qml
+RightIconWid 1.0 ./controlCenter/RightIcon.qml
+UptimeWid 1.0 ./controlCenter/Uptime.qml
+UsageWid 1.0 ./controlCenter/Usage.qml
+
+SubTitleWid 1.0 ./settings/SubTitleWidget.qml
+TitleWid 1.0 ./settings/TitleWidget.qml

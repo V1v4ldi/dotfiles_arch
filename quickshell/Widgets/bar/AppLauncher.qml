@@ -1,12 +1,12 @@
-import qs.Core
+import quickshell
 import QtQuick
 import Quickshell
 
 Text{
 	id: root
 
-	font.family: FontAndSizeRule.fontFamily
 	font.pixelSize: FontAndSizeRule.iconSize
+	font.family: FontAndSizeRule.fontFamily
 	color: "white"
 	text: Icons.arch
 }
