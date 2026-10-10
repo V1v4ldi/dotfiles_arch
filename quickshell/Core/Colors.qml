@@ -77,7 +77,7 @@ Singleton{
 
 	FileView {
         id: colorsFile
-        path: Quickshell.env("HOME") + "/.config/quickshell/Core/ColorPalette.json"
+        path: Utils.configPath + "/ColorPalette.json"
         watchChanges: true
         onFileChanged: reloadTimer.restart()
     }
