@@ -2,7 +2,7 @@ pragma Singleton
 import QtQuick
 import Quickshell
 import Quickshell.Io
-import qs.services
+import quickshell
 
 Singleton{
 	id:systemService
@@ -15,12 +15,10 @@ Singleton{
 	property int uptimeMinute: 0
 	property string whoami: ""
 
-	Battery{id:battService}
-	
-	property real batt: battService.battPercentage
-	property int isCharging: battService.battStatus
-	property real battTTF: battService.timeToFull
-	property real battTTE: battService.timeToEmpty 
+	property real batt: Battery.battPercentage
+	property int isCharging: Battery.battStatus
+	property real battTTF: Battery.timeToFull
+	property real battTTE: Battery.timeToEmpty 
 
 	Process{
 		id:systemProcs

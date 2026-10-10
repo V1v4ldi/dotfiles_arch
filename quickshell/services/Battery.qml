@@ -1,8 +1,9 @@
+pragma Singleton
 import Quickshell
 import QtQuick
 import Quickshell.Services.UPower
 
-QtObject{
+Singleton{
 	id: battService
 	property int deviceState: UPower.displayDevice.state
 	property int battStatus: getBattStatus()
