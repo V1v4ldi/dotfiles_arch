@@ -1,9 +1,7 @@
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
-import qs.Widgets.controlCenter
-import qs.Core
-import qs.services as Service
+import quickshell
 
 Rectangle{
 	id:root
@@ -30,10 +28,10 @@ Rectangle{
 			cursorShape: Qt.PointingHandCursor
 			onClicked: {console.log("Tes")}
 			
-			ConnectionWidget{
+			ConnectionWid{
 				id: wifiIcon
-				connectionIcon: Service.Network.wifiEnabled ? Icons.wifiFull : Icons.wifiDisconnect
-				connectionText: Service.Network?.wifiName
+				connectionIcon: Network.wifiEnabled ? Icons.wifiFull : Icons.wifiDisconnect
+				connectionText: Network?.wifiName
 			}
 		}
 		Item{
@@ -49,7 +47,7 @@ Rectangle{
 				ccIpc.openCC()
 			} 
 			
-			RightIcon{
+			RightIconWid{
 				id: rightIcon
 			}
 		}

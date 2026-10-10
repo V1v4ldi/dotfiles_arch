@@ -1,9 +1,7 @@
-import qs.Core
-import qs.Widgets.controlCenter
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
-import qs.services as Service
+import quickshell
 
 ColumnLayout{
 	id:root
@@ -21,12 +19,12 @@ ColumnLayout{
 			id: profileRow
 			spacing: 20
 			anchors.verticalCenter: parent.verticalCenter
-			Profile{
+			ProfileWid{
 				Layout.preferredWidth: 128
 				Layout.preferredHeight:128
 				Layout.leftMargin: 15
 			}
-			Uptime{
+			UptimeWid{
 				Layout.leftMargin: 15
 			}
 		}
@@ -44,23 +42,23 @@ ColumnLayout{
 			spacing: 15
 			anchors.centerIn: parent
 
-			Usage{
+			UsageWid{
 				id: cpu
 				usageIcon: Icons.cpuIcon
-				circleUsage: Service.SystemUsage.cpuUsage * 3.6
-				textUsage: "Cpu: " + Service.SystemUsage.cpuUsage + "%"
+				circleUsage: SystemUsage.cpuUsage * 3.6
+				textUsage: "Cpu: " + SystemUsage.cpuUsage + "%"
 			}
-			Usage{
+			UsageWid{
 				id: ram
 				usageIcon: Icons.ramIcon
-				circleUsage: Service.SystemUsage.ramUsage * 3.6
-				textUsage: "Ram: " + Service.SystemUsage.ramUsage + "%"
+				circleUsage: SystemUsage.ramUsage * 3.6
+				textUsage: "Ram: " + SystemUsage.ramUsage + "%"
 			}
-			Usage{
+			UsageWid{
 				id: disk
 				usageIcon: Icons.diskIcon
-				circleUsage: Service.SystemUsage.diskUsage * 3.6
-				textUsage: "Disk: " + Service.SystemUsage.diskUsage + "%"
+				circleUsage: SystemUsage.diskUsage * 3.6
+				textUsage: "Disk: " + SystemUsage.diskUsage + "%"
 			}
 		}
 	}

@@ -2,9 +2,8 @@ import QtQuick
 import QtQuick.Layouts
 import Quickshell
 import Quickshell.Widgets
-import qs.Widgets.controlCenter
 import qs.Core
-import qs.services as Service
+import quickshell
 
 Rectangle{
 	id:root
@@ -31,10 +30,10 @@ Rectangle{
 			cursorShape: Qt.PointingHandCursor
 			onClicked: settingsIpc.openSettings()
 
-			ConnectionWidget{
+			ConnectionWid{
 				id: btIcon
-				connectionIcon: Service.Bluetooth.bluetoothEnabled ? Icons.btConnect : Icons.btDisconnect
-				connectionText: Service.Bluetooth.deviceName
+				connectionIcon: Bluetooth.bluetoothEnabled ? Icons.btConnect : Icons.btDisconnect
+				connectionText: Bluetooth.deviceName
 			}
 		}
 
@@ -52,7 +51,7 @@ Rectangle{
 				ccIpc.openCC()
 			}
 			
-			RightIcon{
+			RightIconWid{
 				id: rightIcon
 			}
 		}

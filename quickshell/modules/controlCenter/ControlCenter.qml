@@ -1,8 +1,8 @@
 import Quickshell
 import QtQuick
 import QtQuick.Layouts
-import qs.modules.controlCenter.components
-import qs.Core
+import "./components/" as Comp
+import quickshell
 
 Item {
 	id: root
@@ -19,6 +19,7 @@ Item {
 			openAnim.restart()
 		} else{
 			closeAnim.restart()
+			root.forceActiveFocus()
 	
 		}
 	}
@@ -68,7 +69,7 @@ Item {
 					spacing: 18
 					width: parent.width
 						
-					SystemUsage{
+					Comp.SystemUsage{
 						id: systemUsage
 						Layout.fillWidth: true
 						Layout.alignment: Qt.AlignHCenter
@@ -93,7 +94,7 @@ Item {
 							spacing: 18
 							width:parent.width
 
-							Bluetooth{
+							Comp.Bluetooth{
 								id: bt
 								Layout.topMargin:10
 								Layout.fillWidth: true
@@ -101,7 +102,7 @@ Item {
 								Layout.rightMargin: 5
 							}
 
-							Network{
+							Comp.Network{
 								id:wf
 								Layout.fillWidth: true
 								Layout.leftMargin: 5
@@ -139,6 +140,17 @@ Item {
 		NumberAnimation{
 			target: ccRoot; property: "x"
 			from: Quickshell.screens[0].width - controlCenterWidth; to: Quickshell.screens[0].width; duration: 280; easing.type: Easing.InCubic
+		}
+	}
+
+	Timer{
+		id: closeTimer
+		interval: 600
+		running:!root.opened
+		onTriggered: {
+			if(root.parent){
+				root.parent.active = false
+			}
 		}
 	}
 }
