@@ -1,8 +1,8 @@
 import Quickshell
 import QtQuick
 import QtQuick.Layouts
-import qs.Core
 import qs.Widgets.settings
+import quickshell
 
 Rectangle{
 	id: root

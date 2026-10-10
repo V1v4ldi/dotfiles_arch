@@ -1,8 +1,8 @@
 import Quickshell
 import QtQuick
 import QtQuick.Layouts
-import qs.Core
-import qs.modules.settings.components
+import "./components"
+import quickshell
 
 Item {
 	id: root
@@ -19,6 +19,7 @@ Item {
 			openAnim.start()
 		} else {
 			closeAnim.start()
+			root.forceActiveFocus()
 		}
 	}
 
@@ -92,6 +93,17 @@ Item {
 		NumberAnimation{
 			target: settings; property: "y"
 			from: (Quickshell.screens[0].height / 2) - (settings.height / 2); to: Quickshell.screens[0].height; duration: 280; easing.type: Easing.InOutCubic
+		}
+	}
+
+	Timer{
+		id:closeTimer
+		interval:600
+		running:!root.opened
+		onTriggered:{
+			if(root.parent){
+				root.parent.active = false
+			}
 		}
 	}
 }

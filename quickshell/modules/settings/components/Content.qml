@@ -1,6 +1,8 @@
 import Quickshell
 import QtQuick
-import qs.components.settings
+import "./title"
+import "./content"
+import quickshell
 
 Rectangle{
 	id:root

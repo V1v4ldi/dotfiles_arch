@@ -1,13 +1,12 @@
 import Quickshell
 import QtQuick
 import QtQuick.Layouts
-import qs.Core
-import qs.Widgets.settings
+import quickshell
 
 Item{
 	id: closeArea
 				
-	TitleWidget{
+	TitleWid{
 		id:settingsTitle
 		width: parent.width / 4
 		height: parent.height
