@@ -1,0 +1,14 @@
+module quickshell
+
+singleton Utils 1.0 Core/Utils.qml
+singleton Icons 1.0 Core/Icons.qml
+singleton FontAndSizeRule 1.0 Core/FontAndSizeRule.qml
+singleton Colors 1.0 Core/Colors.qml
+
+singleton Audio 1.0 services/Audio.qml
+singleton Battery 1.0 services/Battery.qml
+singleton Bluetooth 1.0 services/Bluetooth.qml
+singleton Network 1.0 services/Network.qml
+singleton SystemUsage 1.0 services/SystemUsage.qml
+
+import qs.Widgets

@@ -10,29 +10,15 @@ import Quickshell
 import Quickshell.Wayland
 import Quickshell.Hyprland
 import qs.modules.bar
-import qs.modules.controlCenter
 import qs.modules.settings
+import quickshell
 
 ShellRoot {
-
-	PanelWindow {
-		focusable: true
-		WlrLayershell.layer: WlrLayer.Bottom
-		exclusionMode: ExclusionMode.Ignore
-		WlrLayershell.keyboardFocus: WlrKeyboardFocus.None
-	    color: "transparent"
-	    anchors {
-            left: true
-            right: true
-            top: true
-            bottom: true
-		}	
-	}
 
 	PanelWindow{
 		id: rootPanel
         exclusionMode: ExclusionMode.Ignore
-        implicitHeight: screen.height
+        implicitHeight: 28
         implicitWidth: screen.width
 		
 		anchors {
@@ -45,35 +31,20 @@ ShellRoot {
 		color: "transparent"
 		focusable: true
 
-		PanelWindow{
-			implicitHeight: 28
-			implicitWidth: 0
-			anchors.top: true
-			color: "transparent"
-			mask: rootPanel.mask
-		}
-		
 		Bar {id: topBar}
 		
 		Loader {
 			id:controlCenterLoader
 			active:false
 			anchors.fill: parent
-			sourceComponent: ControlCenter{
-				id:controlCenter
-				property int topBarHeight: topBar.height
-			}
 			focus: true
+			
 		}
 
 		Loader {
 			id:settingsLoader
 			active: false
 			anchors.fill: parent
-			sourceComponent: Settings{
-				id: settings
-				dd1: ""
-			}
 			focus: true
 		}
 
@@ -85,67 +56,35 @@ ShellRoot {
 
 	}
 
-	Timer {
-        id: closeSettingsTimer
-        interval: 600
-        onTriggered: settingsLoader.active = false
-    }
-	
-	Connections {
-        target: settingsLoader.item
-        function onOpenedChanged() {
-            if (settingsLoader.item && !settingsLoader.item.opened) {
-                closeSettingsTimer.start()
-            }
-        }
-	
-	}
-	
 	IpcHandler{
 		id: settingsIpc
 		target: "settings"
 		function openSettings(x: string):void {
 			if(!settingsLoader.active) {
+				settingsLoader.setSource(Utils.path("modules/settings/Settings.qml"), {
+					"opened": true,
+					"dd1": x
+				})
 				settingsLoader.active = true
 
-				Qt.callLater(() => {
-					if(settingsLoader.item) {
-						settingsLoader.item.opened = true
-						settingsLoader.item.dd1 = x
-					}
-				})
 			} else {
 				settingsLoader.item.opened = !settingsLoader.item.opened;
+				settingsLoader.focus = !settingsLoader.focus
 			}
 		}
 	}
 
-	Timer {
-        id: closeControlCenterTimer
-        interval: 600
-        onTriggered: controlCenterLoader.active = false
-    }
-	
-	Connections {
-        target: controlCenterLoader.item
-        function onOpenedChanged() {
-            if (controlCenterLoader.item && !controlCenterLoader.item.opened) {
-                closeControlCenterTimer.start()
-            }
-        }
-	
-	}
 	
 	IpcHandler{
 		id: ccIpc
 		target: "controlCenter"
 		function openCC():void {
 			if(!controlCenterLoader.active) {
-				controlCenterLoader.active = true
-
-				Qt.callLater(() => {
-					if(controlCenterLoader.item) controlCenterLoader.item.opened = true
+				controlCenterLoader.setSource(Utils.path("modules/controlCenter/ControlCenter.qml"), {
+					"opened": true
 				})
+
+				controlCenterLoader.active = true
 			} else {
 				controlCenterLoader.item.opened = !controlCenterLoader.item.opened;
 			}
