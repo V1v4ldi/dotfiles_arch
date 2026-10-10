@@ -3,8 +3,8 @@ import Quickshell.Wayland
 import QtQuick
 import Quickshell.Hyprland
 import QtQuick.Layouts
-import qs.modules.bar.components
-import qs.Core
+import quickshell
+import "./components/" as Comp
 
 Item {
 		id:barRoot
@@ -32,17 +32,17 @@ Item {
 				id:layoutLeft
 				anchors.verticalCenter: parent.verticalCenter
 
-				AppLauncher{
+				Comp.AppLauncher{
 					Layout.leftMargin: 16
 				}
 
-				Separator{
+				Comp.Separator{
 					type:"dot-line"
 					Layout.leftMargin: 10
 					Layout.rightMargin: 10
 				}
 
-				Workspaces{
+				Comp.Workspaces{
 					height: containerLeft.height
 				}
 			}
@@ -61,13 +61,13 @@ Item {
 				anchors.verticalCenter: parent.verticalCenter
 
 					
-				Separator{
+				Comp.Separator{
 					type:"dot-line"
 					Layout.leftMargin: 10
 					Layout.rightMargin: 10
 				}					
 
-				Clock{}				
+				Comp.Clock{}				
 			}
 		}
 
@@ -91,31 +91,31 @@ Item {
 					rightMargin: 16
 				}				
 
-				Settings{
+				Comp.Settings{
 					id: settings
 				}
 
-				Separator{
+				Comp.Separator{
 					type:"dot-line"
 				}
 				
-				Audio{
+				Comp.Audio{
 					id: audio
 				}
 
-				Battery{
+				Comp.Battery{
 					id: batt
 				}
 
-				Temp{
+				Comp.Temp{
 					id: temp
 				}
 
-				Separator{
+				Comp.Separator{
 					type:"dot-line"
 				}
 
-				ControlCenter{
+				Comp.ControlCenter{
 					id: cc
 				}
 			}

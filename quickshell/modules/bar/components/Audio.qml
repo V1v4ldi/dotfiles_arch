@@ -1,9 +1,7 @@
 import Quickshell
 import QtQuick
 import QtQuick.Layouts
-import qs.services as Service
-import qs.Widgets.bar
-import qs.Core
+import quickshell
 
 Row {
 	id:audioRoot
@@ -37,12 +35,12 @@ Row {
 
 		]
 	
-		AudioWidget{
+		AudioWid{
 			id: micWid
 			
-			text: Math.round(Service.Audio.micVolume * 100) + "%"
-			icon: Service.Audio.micMuted ? Icons.micMute : Icons.mic
-			visibility: !Service.Audio.micMuted
+			text: Math.round(Audio.micVolume * 100) + "%"
+			icon: Audio.micMuted ? Icons.micMute : Icons.mic
+			visibility: !Audio.micMuted
 		}	
 
 		MouseArea {
@@ -52,9 +50,9 @@ Row {
 			cursorShape: Qt.PointingHandCursor
 			hoverEnabled: true
 			
-			onClicked: {Service.Audio.toggleMute("Source")}
+			onClicked: {Audio.toggleMute("Source")}
 		
-			onWheel: (wheel) => {wheel.angleDelta.y > 0 ? Service.Audio.volumeInc("Source") : Service.Audio.volumeDec("Source")}
+			onWheel: (wheel) => {wheel.angleDelta.y > 0 ? Audio.volumeInc("Source") : Service.Audio.volumeDec("Source")}
 
 			onEntered: {
 				hoverTimer.targetState = "visible"
@@ -78,16 +76,15 @@ Row {
 		anchors.verticalCenter: parent.verticalCenter
 
 	
-		AudioWidget{
+		AudioWid{
 			id:speakerWid	
 
-			text: Math.round(Service.Audio.volume * 100) + "%"
-			icon: {
-				(Service.Audio?.muted ?? false) ? Icons.mute :
-				(Service.Audio?.volume * 100 ?? 0) <= 25 ? Icons.volumeLow :
-				(Service.Audio?.volume * 100 ?? 0) <= 50 ? Icons.volumeMed : Icons.volumeHigh
-			}
-			visibility: !Service.Audio.muted
+			text: Math.round(Audio.volume * 100) + "%"
+			icon: (Audio?.muted ?? false) ? Icons.mute :
+				((Audio?.volume * 100 ?? 0) <= 25) ? Icons.volumeLow :
+				((Audio?.volume * 100 ?? 0) <= 50) ? Icons.volumeMed : Icons.volumeHigh
+			visibility: !Audio.muted
+
 		}
 
 		MouseArea {
@@ -97,9 +94,8 @@ Row {
 			cursorShape: Qt.PointingHandCursor
 			hoverEnabled: true
 
-			onClicked: {Service.Audio.toggleMute("Sink")}
-		
-			onWheel: (wheel) => {wheel.angleDelta.y > 0 ? Service.Audio.volumeInc("Sink") : Service.Audio.volumeDec("Sink")}
+			onClicked: {Audio.toggleMute("Sink")}
+			onWheel: (wheel) => {wheel.angleDelta.y > 0 ? Audio.volumeInc("Sink") : Service.Audio.volumeDec("Sink")}
 			
 			onEntered: {
 				hoverTimer.targetState = "visible"
