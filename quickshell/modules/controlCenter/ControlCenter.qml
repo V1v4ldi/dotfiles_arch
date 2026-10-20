@@ -19,8 +19,6 @@ Item {
 			openAnim.restart()
 		} else{
 			closeAnim.restart()
-			root.forceActiveFocus()
-	
 		}
 	}
 
@@ -54,7 +52,6 @@ Item {
 
 		FocusScope{
 			anchors.fill: parent
-			focus: root.opened
 
 			Flickable{
 				id: flickable
@@ -67,15 +64,17 @@ Item {
 				ColumnLayout{
 					id:ccColumn
 					spacing: 18
-					width: parent.width
+					anchors{
+						left: parent.left
+						right: parent.right
+						rightMargin: 30
+						leftMargin:30
+					}
 						
 					Comp.SystemUsage{
 						id: systemUsage
-						Layout.fillWidth: true
-						Layout.alignment: Qt.AlignHCenter
-						Layout.topMargin: 20
-						Layout.leftMargin: 30
-						Layout.rightMargin: 30
+						Layout.topMargin: 30
+						bgColor: Qt.alpha(Colors.on_primary, 0.4)
 					}
 
 					Rectangle{
@@ -86,8 +85,6 @@ Item {
 						Layout.fillWidth: true
 						height: connColumn.height + 10
 						Layout.alignment: Qt.AlignHCenter
-						Layout.leftMargin: 30
-						Layout.rightMargin: 30
 
 						ColumnLayout{
 							id:connColumn
@@ -110,7 +107,47 @@ Item {
 							}
 						}
 
-						
+					}
+				
+					MetricPillWid{
+						mode: "side"
+						implicitWidth: parent.width
+						implicitHeight: 60
+						bgColor: Qt.alpha(Colors.on_primary, 0.4)
+						separators:[30,70]
+						gapSize: 10
+						separatorColor: Colors.background
+						limit: 150
+						sliderVal:Math.round(Audio.volume * 100)
+						moved: function(val){
+								if(Audio.defaultSink){
+										Audio.setVolume(val / 100)
+									}
+								}
+						iconStart: Math.round(Audio.volume * 100) + " %"
+						iconEnd: (Audio?.muted ?? false) ? Icons.mute :
+								 ((Audio?.volume * 100 ?? 0) <= 25) ? Icons.volumeLow :
+								 ((Audio?.volume * 100 ?? 0) <= 50) ? Icons.volumeMed : Icons.volumeHigh
+					}
+					MetricPillWid{
+						mode: "side"
+						implicitWidth: parent.width
+						implicitHeight: 60
+						bgColor: Qt.alpha(Colors.on_primary, 0.4)
+						separators:[30,70]
+						gapSize: 10
+						separatorColor: Colors.background
+						limit: 100
+					}
+					MetricPillWid{
+						mode: "side"
+						implicitWidth: parent.width
+						implicitHeight: 60
+						bgColor: Qt.alpha(Colors.on_primary, 0.4)
+						separators:[30,70]
+						gapSize: 10
+						separatorColor: Colors.background
+						limit: 100
 					}
 				}
 			}
@@ -151,6 +188,14 @@ Item {
 			if(root.parent){
 				root.parent.active = false
 			}
+		}
+	}
+
+	Shortcut{
+		sequences: ["Escape"]
+		enabled: root.opened
+		onActivated: {
+			root.opened = false
 		}
 	}
 }
