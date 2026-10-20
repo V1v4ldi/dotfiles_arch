@@ -18,7 +18,7 @@ ShellRoot {
 	PanelWindow{
 		id: rootPanel
         exclusionMode: ExclusionMode.Ignore
-        implicitHeight: 28
+        implicitHeight: screen.height
         implicitWidth: screen.width
 		
 		anchors {
@@ -29,7 +29,6 @@ ShellRoot {
         }
 		
 		color: "transparent"
-		focusable: true
 
 		Bar {id: topBar}
 		
@@ -37,7 +36,7 @@ ShellRoot {
 			id:controlCenterLoader
 			active:false
 			anchors.fill: parent
-			focus: true
+			focus: controlCenterLoader.active ?? false
 			
 		}
 
@@ -45,7 +44,7 @@ ShellRoot {
 			id:settingsLoader
 			active: false
 			anchors.fill: parent
-			focus: true
+			focus: settingsLoader.active ?? false
 		}
 
 		mask: Region{
@@ -69,7 +68,6 @@ ShellRoot {
 
 			} else {
 				settingsLoader.item.opened = !settingsLoader.item.opened;
-				settingsLoader.focus = !settingsLoader.focus
 			}
 		}
 	}
