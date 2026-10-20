@@ -39,7 +39,7 @@ Row {
 			id: micWid
 			
 			text: Math.round(Audio.micVolume * 100) + "%"
-			icon: Audio.micMuted ? Icons.micMute : Icons.mic
+			icon: Audio.micMuted | Audio.micVolume == 0 ? Icons.micMute : Icons.mic
 			visibility: !Audio.micMuted
 
 			mode: "compact"
