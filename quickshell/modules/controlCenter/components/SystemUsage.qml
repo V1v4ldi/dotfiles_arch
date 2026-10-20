@@ -7,10 +7,11 @@ ColumnLayout{
 	id:root
 	spacing: 15
 	width: parent.width
+	property color bgColor: "transparent" 
 	
 	Rectangle{
 		id: profile
-		color: Qt.alpha(Colors.on_primary, 0.4)
+		color: root.bgColor
 		Layout.fillWidth: true
 		height: profileRow.height + 40
 		radius: 10
@@ -21,7 +22,7 @@ ColumnLayout{
 			anchors.verticalCenter: parent.verticalCenter
 			ProfileWid{
 				Layout.preferredWidth: 128
-				Layout.preferredHeight:128
+				Layout.preferredHeight: 128
 				Layout.leftMargin: 15
 			}
 			UptimeWid{
@@ -32,7 +33,7 @@ ColumnLayout{
 	
 	Rectangle{
 		id: usage
-		color: Qt.alpha(Colors.on_primary, 0.4)
+		color: root.bgColor
 		Layout.fillWidth: true
 		height: usageRow.height + 20
 		radius: 10
