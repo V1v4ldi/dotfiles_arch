@@ -35,12 +35,14 @@ Row {
 
 		]
 	
-		AudioWid{
+		MetricPillWid{
 			id: micWid
 			
 			text: Math.round(Audio.micVolume * 100) + "%"
 			icon: Audio.micMuted ? Icons.micMute : Icons.mic
 			visibility: !Audio.micMuted
+
+			mode: "compact"
 		}	
 
 		MouseArea {
@@ -76,15 +78,16 @@ Row {
 		anchors.verticalCenter: parent.verticalCenter
 
 	
-		AudioWid{
+		MetricPillWid{
 			id:speakerWid	
 
+			visibility: !Audio.muted
 			text: Math.round(Audio.volume * 100) + "%"
-			icon: (Audio?.muted ?? false) ? Icons.mute :
+			icon: (Audio?.muted | Audio.volume == 0 ?? false) ? Icons.mute :
 				((Audio?.volume * 100 ?? 0) <= 25) ? Icons.volumeLow :
 				((Audio?.volume * 100 ?? 0) <= 50) ? Icons.volumeMed : Icons.volumeHigh
-			visibility: !Audio.muted
-
+			
+			mode: "compact"
 		}
 
 		MouseArea {
