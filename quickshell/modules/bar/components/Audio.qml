@@ -6,7 +6,7 @@ import quickshell
 Row {
 	id:audioRoot
 	spacing: 18
-
+	
 	Item {
 		id: micTextArea
 		clip: true
@@ -23,7 +23,7 @@ Row {
 
 			State { 
 				name: "visible"
-				PropertyChanges {target: micTextArea; width: micWid.implicitWidth}
+				PropertyChanges {target: micTextArea; width: Audio.micMuted ? micWid.implicitWidth + 6 :  micWid.implicitWidth}
 			}
 
 		]
@@ -35,14 +35,13 @@ Row {
 
 		]
 	
-		MetricPillWid{
+		BlockWid{
 			id: micWid
 			
 			text: Math.round(Audio.micVolume * 100) + "%"
 			icon: Audio.micMuted | Audio.micVolume == 0 ? Icons.micMute : Icons.mic
-			visibility: !Audio.micMuted
-
-			mode: "compact"
+			mode: Audio.micMuted ? "icon" : "both"
+			bgColor: Colors.on_background
 		}	
 
 		MouseArea {
@@ -78,16 +77,15 @@ Row {
 		anchors.verticalCenter: parent.verticalCenter
 
 	
-		MetricPillWid{
+		BlockWid{
 			id:speakerWid	
 
-			visibility: !Audio.muted
+			bgColor: Colors.on_background
+			mode: Audio.muted ? "icon" : "both"
 			text: Math.round(Audio.volume * 100) + "%"
 			icon: (Audio?.muted | Audio.volume == 0 ?? false) ? Icons.mute :
 				((Audio?.volume * 100 ?? 0) <= 25) ? Icons.volumeLow :
 				((Audio?.volume * 100 ?? 0) <= 50) ? Icons.volumeMed : Icons.volumeHigh
-			
-			mode: "compact"
 		}
 
 		MouseArea {
