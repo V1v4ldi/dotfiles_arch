@@ -6,7 +6,6 @@ import quickshell
 
 Item {
 	id: root
-	focus:true
 	visible: opened
 
 	property bool opened: false
@@ -17,9 +16,9 @@ Item {
 			root.visible = true
 			settings.y = -settings.height
 			openAnim.start()
+			scrim.opacity = 0
 		} else {
 			closeAnim.start()
-			root.forceActiveFocus()
 		}
 	}
 
@@ -27,6 +26,19 @@ Item {
 		opened = false
 	}
 
+	Rectangle{
+		id: scrim
+		anchors.fill: parent
+		opacity: 0
+		enabled: opacity > 0.01
+		Behavior on opacity { NumberAnimation { duration: 280; easing.type: Easing.OutCubic } }
+		
+		MouseArea {
+            anchors.fill: parent
+            enabled: parent.enabled
+            onClicked: root.close()
+        }
+	}
 
 	Rectangle{
 		id: settings 
@@ -80,7 +92,12 @@ Item {
 	//Animation
 	ParallelAnimation{
 		id:openAnim
-		
+
+		NumberAnimation{
+			target: scrim; property: "opacity"
+			to:0.085; duration: 280; easing.type: Easing.InCubic
+		}
+
 		NumberAnimation{
 			target: settings; property: "y"
 			from: -settings.height; to: (Quickshell.screens[0].height / 2) - (settings.height / 2); duration: 280; easing.type: Easing.InOutCubic
@@ -90,6 +107,10 @@ Item {
 	ParallelAnimation{
 		id:closeAnim
 		
+		NumberAnimation{
+			target: scrim; property: "opacity"
+			to:0; duration: 280; easing.type: Easing.InCubic
+		}
 		NumberAnimation{
 			target: settings; property: "y"
 			from: (Quickshell.screens[0].height / 2) - (settings.height / 2); to: Quickshell.screens[0].height; duration: 280; easing.type: Easing.InOutCubic
@@ -104,6 +125,14 @@ Item {
 			if(root.parent){
 				root.parent.active = false
 			}
+		}
+	}
+
+	Shortcut{
+		sequences: ["Escape"]
+		enabled: root.opened
+		onActivated: {
+			root.opened = false
 		}
 	}
 }
