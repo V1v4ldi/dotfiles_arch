@@ -7,12 +7,17 @@ import quickshell
 import "./components/" as Comp
 
 Item {
-		id:barRoot
+	id:root
+	property string primary: Colors.background
 
-		implicitHeight: 28
-		anchors.left: parent.left
-		anchors.right: parent.right
-		focus:true
+	implicitHeight: 28
+	anchors{
+		left: parent.left
+		right: parent.right
+		top: parent.top
+		topMargin: 6 * FontAndSizeRule.scaleFactor 
+	}
+	focus:true
 
 	Item{
 		id:barContent
@@ -24,7 +29,7 @@ Item {
 			width: layoutLeft.implicitWidth
 			height: parent.height
 			radius:10
-			color: Colors.surface_container_lowest
+			color: root.primary
 			anchors.leftMargin: 8
 
 			
@@ -54,7 +59,7 @@ Item {
 			width: layoutMid.implicitWidth
 			height: parent.height
 			radius: 10	
-			color: Colors.surface_container_lowest
+			color: root.primary
 
 			RowLayout{
 				id: layoutMid
@@ -77,7 +82,7 @@ Item {
 			height: parent.height
 			width: layoutRight.width + 40
 			radius: 10
-			color: Colors.surface_container_lowest
+			color: root.primary
 			anchors.rightMargin: 8
 
 			Row{
