@@ -1,6 +1,8 @@
 module qs.Widgets
 
-MetricPillWid 1.0 MetricPillWid.qml
+BlockWid 1.0 BlockWid.qml
+SliderWid 1.0 SliderWid.qml
+ToastWid 1.0 NotifToastWid.qml
 
 AppLauncherWid 1.0 ./bar/AppLauncher.qml
 BatteryWid 1.0 ./bar/Battery.qml
