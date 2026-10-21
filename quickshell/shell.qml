@@ -31,6 +31,8 @@ ShellRoot {
 		color: "transparent"
 
 		Bar {id: topBar}
+
+		ToastWid{id: toast}
 		
 		Loader {
 			id:controlCenterLoader
@@ -49,6 +51,7 @@ ShellRoot {
 
 		mask: Region{
 			Region{item: topBar}
+			Region{item: toast}
 			Region{item: controlCenterLoader.active && controlCenterLoader.item?.opened ? controlCenterLoader.item : null}
 			Region{item: settingsLoader.active && settingsLoader.item?.opened ? settingsLoader.item : null}
 		}
