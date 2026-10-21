@@ -108,47 +108,180 @@ Item {
 						}
 
 					}
+
+					Rectangle{
+						id: audioContainer
+						height: audioVolume.height + audioSource.height + audioSlider.height
+						color: Colors.background
+
+						anchors{
+							left: parent.left
+							right: parent.right
+							rightMargin: 5 * FontAndSizeRule.scaleFactor
+							leftMargin: 5 * FontAndSizeRule.scaleFactor
+						}
+						
+						Text{
+							id:audioVolume
+							anchors{
+								top: parent.top
+							}
+							font.family: FontAndSizeRule.fontFamily
+							font.pixelSize: FontAndSizeRule.fontSize * 1.5
+							color: Colors.on_primary_container
+							text: "Speaker Volume"
+						}
+
+						Text{
+							id:audioSource
+							anchors{
+								top: audioVolume.bottom
+								topMargin: 3 * FontAndSizeRule.scaleFactor
+							}
+							font.family: FontAndSizeRule.fontFamily
+							font.pixelSize: FontAndSizeRule.fontSize * 1.1
+							color: Qt.alpha(Colors.on_primary_container, 0.8)
+							text: Audio.speakerName
+						}
 				
-					MetricPillWid{
-						mode: "side"
-						implicitWidth: parent.width
-						implicitHeight: 60
-						bgColor: Qt.alpha(Colors.on_primary, 0.4)
-						separators:[30,70]
-						gapSize: 10
-						separatorColor: Colors.background
-						limit: 150
-						sliderVal:Math.round(Audio.volume * 100)
-						moved: function(val){
-								if(Audio.defaultSink){
-										Audio.setVolume(val / 100)
+						SliderWid{
+							anchors{
+								top: audioSource.bottom
+								topMargin: 3 * FontAndSizeRule.scaleFactor
+							}
+							id: audioSlider
+							implicitWidth: parent.width
+							implicitHeight: 60
+							bgColor: Qt.alpha(Colors.on_primary, 0.4)
+							separators:[30,70]
+							gapSize: 10
+							separatorColor: Colors.background
+							limit: 150
+							sliderVal:Math.round(Audio.volume * 100)
+							moved: function(val){
+									if(Audio.defaultSink){
+											Audio.setVolume(val / 100)
+										}
 									}
-								}
-						iconStart: Math.round(Audio.volume * 100) + " %"
-						iconEnd: (Audio?.muted ?? false) ? Icons.mute :
-								 ((Audio?.volume * 100 ?? 0) <= 25) ? Icons.volumeLow :
-								 ((Audio?.volume * 100 ?? 0) <= 50) ? Icons.volumeMed : Icons.volumeHigh
+							iconStart: Math.round(Audio.volume * 100) + " %"
+							iconEnd: (Audio?.muted ?? false) ? Icons.mute :
+									 ((Audio?.volume * 100 ?? 0) <= 25) ? Icons.volumeLow :
+									 ((Audio?.volume * 100 ?? 0) <= 50) ? Icons.volumeMed : Icons.volumeHigh
+						}
 					}
-					MetricPillWid{
-						mode: "side"
-						implicitWidth: parent.width
-						implicitHeight: 60
-						bgColor: Qt.alpha(Colors.on_primary, 0.4)
-						separators:[30,70]
-						gapSize: 10
-						separatorColor: Colors.background
-						limit: 100
+
+					Rectangle{
+						id: micContainer	
+						height: micVolume.height + micSource.height + micSlider.height
+						color: Colors.background	
+
+						anchors{
+							left: parent.left
+							right: parent.right
+							rightMargin: 5 * FontAndSizeRule.scaleFactor
+							leftMargin: 5 * FontAndSizeRule.scaleFactor
+						}
+						
+						Text{
+							id:micVolume
+							anchors{
+								top: parent.top
+							}
+							font.family: FontAndSizeRule.fontFamily
+							font.pixelSize: FontAndSizeRule.fontSize * 1.5
+							color: Colors.on_primary_container
+							text: "Mic Volume"
+						}
+
+						Text{
+							id:micSource
+							anchors{
+								top: micVolume.bottom
+								topMargin: 3 * FontAndSizeRule.scaleFactor
+							}
+							font.family: FontAndSizeRule.fontFamily
+							font.pixelSize: FontAndSizeRule.fontSize * 1.1
+							color: Qt.alpha(Colors.on_primary_container, 0.8)
+							text: Audio.micName
+						}
+					
+					
+						SliderWid{
+							id:micSlider
+							anchors{
+								top: micSource.bottom
+								topMargin: 3 * FontAndSizeRule.scaleFactor
+							}
+							implicitWidth: parent.width
+							implicitHeight: 60
+							bgColor: Qt.alpha(Colors.on_primary, 0.4)
+							separators:[30,70]
+							gapSize: 10
+							separatorColor: Colors.background
+							limit: 100
+							sliderVal:Math.round(Audio.micVolume * 100)
+							moved: function(val){
+									if(Audio.defaultSource){
+											Audio.setSourceVolume(val / 100)
+										}
+									}
+							iconStart: Math.round(Audio.micVolume * 100) + " %"
+							iconEnd: (Audio?.micMuted ?? false) ? Icons.micMute : Icons.mic
+						}
 					}
-					MetricPillWid{
-						mode: "side"
-						implicitWidth: parent.width
-						implicitHeight: 60
-						bgColor: Qt.alpha(Colors.on_primary, 0.4)
-						separators:[30,70]
-						gapSize: 10
-						separatorColor: Colors.background
-						limit: 100
+				
+					Rectangle{
+						id: brightnessContainer	
+						height: brightnessText.height + brightnessSlider.height
+						color: Colors.background	
+
+						anchors{
+							left: parent.left
+							right: parent.right
+							rightMargin: 5 * FontAndSizeRule.scaleFactor
+							leftMargin: 5 * FontAndSizeRule.scaleFactor
+						}
+						
+						Text{
+							id: brightnessText
+
+							anchors{
+								top: parent.top
+							}
+
+							font.family: FontAndSizeRule.fontFamily
+							font.pixelSize: FontAndSizeRule.fontSize * 1.5
+							color: Colors.on_primary_container
+							text: "Brightness"
+						}
+
+						SliderWid{
+							id: brightnessSlider
+
+							anchors{
+								top: brightnessText.bottom
+								topMargin: 3 * FontAndSizeRule.scaleFactor
+							}
+
+							implicitWidth: parent.width
+							implicitHeight: 60
+							bgColor: Qt.alpha(Colors.on_primary, 0.4)
+							separators:[25,75]
+							gapSize: 10
+							separatorColor: Colors.background
+							limit: 100
+							sliderVal: Brightness.current_brightness_perc
+							moved: function(val){
+								Brightness.setBrightness(val)
+							}
+							iconStart: Brightness.current_brightness_perc + " %"
+							iconEnd: (Brightness.current_brightness_perc < 25) ? Icons.brightLow :
+									  (Brightness.current_brightness_perc < 75) ? Icons.brightMed : Icons.brightHigh
+						}
 					}
+					
+					
+
 				}
 			}
 		}
