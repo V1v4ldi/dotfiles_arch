@@ -16,9 +16,11 @@ Singleton{
 
 	property var sinks: Pipewire.nodes.values.filter(node => node.isSink && !node.isStream && node.audio)
 	property PwNode defaultSink: Pipewire.defaultAudioSink
+	property string speakerName: defaultSink ? defaultSink.description : "Error"
 
 	property var sources: Pipewire.nodes.values.filter(node => !node.isSink && !node.isStream && node.audio)
 	property PwNode defaultSource: Pipewire.defaultAudioSource
+	property string micName: defaultSource ? defaultSource.description : "Error"
 
 	property bool muted: defaultSink?.audio?.muted ?? false
 	property bool micMuted: defaultSource?.audio?.muted ?? false
