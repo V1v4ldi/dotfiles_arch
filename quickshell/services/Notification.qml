@@ -1,17 +1,19 @@
+pragma Singleton
 pragma ComponentBehavior: Bound
 
 import Quickshell
 import Quickshell.Io
-import Quickshell.Services.Notifications
+import Quickshell.Services.Notifications as QsNotif
 import QtQuick
+import quickshell
 
 Singleton {
 	id: root
-	property list<Notif> data: []
-	property list<Notif> popups: data.filter(n => n.popup && !n.tracked)
-	property list<Notif> history: data
+	property var data: []
+	property var popups: data.filter(n => n && n.popup && !n.tracked)
+	property var history: data
 
-	NotificationServer {
+	QsNotif.NotificationServer {
 		id: server
 
 		keepOnReload: false
@@ -22,29 +24,33 @@ Singleton {
 		imageSupported: true
 
 
-		onNotification: notif => {
-			root.data.push(notifComp.createObject(root, {
+		onNotification: nObj => {
+			if (!nObj) return;
+
+			let item = notifComp.createObject(root, {
 				popup: true,
-				notification: notif,
+				notification: nObj,
 				shown: false
-			}));
+			});
+
+			root.data = [...root.data, item];
 		}
 
 		function removeById(id) {
-			const i = data.findIndex(n => n.notification.id === id);
-			if (i >= 0) {
-				data.splice(i, 1)
-			}
+			root.data = root.data.filter(n => n && n.notification && n.notification.id !== id);
 		}
 	}
 
 	component Notif: QtObject {
 		id: notif
 
-		property bool popup
+		property bool popup: true
+		property bool tracked: false
+		property bool shown: false
+
 		readonly property date time: new Date()
 		readonly property string timeStr: {
-			const diff = Time.date.getTime() - time.getTime
+			const diff = new Date() - time.getTime()
 			const m = Math.floor(diff / 60000)
 			const h = Math.floor(m / 60)
 
@@ -55,19 +61,31 @@ Singleton {
 			return `${h}h`
 		}
 
-		property bool shown: false
-		required property Notification notification
-		readonly property string summary: notification.summary
-		readonly property string body: notification.body
-		readonly property string appIcon: notification.appIcon
-		readonly property string appName: notification.appName
-		readonly property string image: notification.image
-		readonly property int urgency: notification.urgency
-		readonly property list<NotificationAction> actions: notification.actions
+		required property QsNotif.Notification notification
+		property string summary: ""
+		property string body: "" 
+		property string appIcon: ""
+		property string appName: ""
+		property string image: ""
+		property int urgency: 0
+		property list<QsNotif.NotificationAction> actions: []
+
+		onNotificationChanged: {
+			if (!notification) return;
+			summary = notification.summary;
+			body = notification.body;
+			appIcon = notification.appIcon;
+			appName = notification.appName;
+			image = notification.image;
+			urgency = notification.urgency;
+			actions = notification.actions;
+		}
 
 		readonly property Timer timer: Timer {
-			running: notif.actions.length >= 0
-			interval: notif.notification.expireTimeout > 0 ? notif.notification.expireTimeout : 5000
+			running: notif.popup
+			interval: (notif.notification && notif.notification.expireTimeout > 0) 
+                      ? notif.notification.expireTimeout 
+                      : 5000
 			onTriggered: {
 				if (true)
 					notif.popup = false;
@@ -75,30 +93,29 @@ Singleton {
 		}
 
 		readonly property Connections conn: Connections {
-			target: notif.notification.Retainable
+			target: notif.notification ? notif.notification.Retainable : null
 
 			function onDropped(): void {
-				root.data.splice(root.data.indexOf(notif), 1);
+				root.data = root.data.filter(n => n !== notif);
 			}
 
-			function onDestroying(): void {
+			function onAboutToDestroy(): void {
 				notif.destroy();
 			}
 		}
 
 		readonly property Connections conn2: Connections{
-			target: notif.notification
+			target: notif.notification ? notif.notification : null
 
 			function onClosed(reason) {
-				root.data.splice(root.data.indexOf(notif), 1)
+				root.data = root.data.filter(n => n !== notif);
 			}
 		}
 
 	}
 
 	Component {
-		id: notifComp
-
-		Notif {}
-	}
+        id: notifComp
+        Notif {}
+    }
 }
