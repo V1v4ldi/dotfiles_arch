@@ -5,57 +5,95 @@ import Quickshell.Io
 import quickshell
 
 Singleton{
-	id:systemService
+	id:root
 
+	readonly property string whoami: Quickshell.env("USER")
 	property int ramUsage: 0
 	property int cpuUsage: 0
 	property int diskUsage: 0
 	property int temp: 0
 	property int uptimeHour: 0
 	property int uptimeMinute: 0
-	property string whoami: ""
+	property real prevTotal:0
+	property real prevIdle:0
 
 	property real batt: Battery.battPercentage
 	property int isCharging: Battery.battStatus
 	property real battTTF: Battery.timeToFull
-	property real battTTE: Battery.timeToEmpty 
+	property real battTTE: Battery.timeToEmpty
+	property real battHealth: Battery.health
 
-	Process{
-		id:systemProcs
-		command: ["sh", "-c", "cat /sys/class/thermal/thermal_zone0/temp;
-		free -m | awk 'NR==2 {print $2}';
-		free -m | awk 'NR==2 {print $3}'; 
-		top -bn2 | grep 'Cpu(s)' | tail -1 | awk '{print 100 - $8}';
-		df -h / | awk 'NR==2 {print $5}' | sed 's/%//';
-		uptime -p | sed -e 's/up //; s/hours//; s/minutes//; s/,//' | awk {'print $1'};
-		uptime -p | sed -e 's/up //; s/hours//; s/minutes//; s/,//' | awk {'print $2'};
-		whoami;"]
+	FileView{
+		id: cpuView
+		path: "/proc/stat"
 
-		stdout: StdioCollector{
-			onStreamFinished:{
-				let data = text.trim().split(/\n/)
-
-				if (data.length >= 6) {
-					systemService.temp = parseInt(data[0]) / 1000
-					systemService.ramUsage = Math.round(parseInt(data[2]) / parseInt(data[1]) * 100)
-					systemService.cpuUsage = parseFloat(data[3])
-					systemService.diskUsage = parseInt(data[4])
-					systemService.uptimeHour = parseInt(data[5])
-					systemService.uptimeMinute = parseInt(data[6])
-					systemService.whoami = data[7]
-				}
+		onLoaded: {
+			const m = /^cpu\s+(.*)$/m.exec(this.text())
+			if (!m) return
+			const v = m[1].trim().split(/\s+/).map(Number)
+			const idle = v[3] + (v[4] ?? 0)
+			const total = v.reduce((a,b) => a + b, 0 )
+			if(root.prevTotal > 0){
+				const d = total - root.prevTotal
+				root.cpuUsage = d > 0
+				? Math.round(100 * (1 - (idle - root.prevIdle) / d )) : 0
 			}
-			
+			root.prevIdle = idle
+			root.prevTotal = total
+		}
+
+	}
+
+	FileView{
+		id: ramView
+		path: "/proc/meminfo"
+
+		onLoaded:{
+			const t = /MemTotal:\s*(\d+)/.exec(this.text())
+			const a = /MemAvailable:\s*(\d+)/.exec(this.text())
+
+			if(t&&a) root.ramUsage = Math.round( a[1]/t[1] * 100)
 		}
 		
 	}
-	
-	Timer {
-			interval: 3500
-			running: true
-			repeat: true
-			onTriggered: {
-				systemProcs.running = true
-			}
+
+	FileView{
+		id: tempView
+		path: "/sys/class/thermal/thermal_zone0/temp"
+
+		onLoaded: root.temp = Math.round(parseInt(this.text()) / 1000)
+	}
+
+	FileView{
+		id: uptimeView
+		path: "/proc/uptime"
+
+		onLoaded: {
+			const s = parseFloat(this.text().split(/\s+/)[0])
+			root.uptimeHour = Math.floor(s/3600) % 24
+			root.uptimeMinute = Math.floor(s/60) % 60
 		}
+	}
+
+
+
+	Timer{
+		interval: 8000
+		running:true
+		repeat:true
+		onTriggered:{
+			cpuView.reload()
+			ramView.reload()
+			uptimeView.reload()
+		}
+	}
+
+	Timer{
+		interval: 4000
+		running:true
+		repeat:true
+		onTriggered:{
+			tempView.reload()
+		}
+	}
 }	
