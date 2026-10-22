@@ -11,6 +11,7 @@ import Quickshell.Wayland
 import Quickshell.Hyprland
 import qs.modules.bar
 import qs.modules.settings
+import qs.modules.controlCenter
 import quickshell
 
 ShellRoot {
@@ -23,7 +24,6 @@ ShellRoot {
 		
 		anchors {
             top: true
-            bottom: true
             left: true
             right: true
         }
@@ -32,7 +32,7 @@ ShellRoot {
 
 		Bar {id: topBar}
 
-		ToastWid{id: toast}
+		NotificationToast{id: toast}
 		
 		Loader {
 			id:controlCenterLoader
