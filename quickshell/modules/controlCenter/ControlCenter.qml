@@ -46,8 +46,6 @@ Item {
 		height: parent.height
 		x: Quickshell.screens[0].width
 
-		layer.enabled:true
-
 		color: Colors.background
 
 		FocusScope{
