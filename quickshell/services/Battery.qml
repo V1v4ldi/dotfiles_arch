@@ -5,14 +5,15 @@ import Quickshell.Services.UPower
 
 Singleton{
 	id: battService
-	property int deviceState: UPower.displayDevice.state
+	readonly property var displayDevice: UPower.displayDevice
+	property int deviceState: displayDevice.state
+	property int battPercentage: displayDevice.percentage * 100 
+	property real timeToEmpty: displayDevice.timeToEmpty
+	property real timeToFull: displayDevice.timeToFull
+	property real health: displayDevice.healthPercentage
 	property int battStatus: getBattStatus()
-	property int battPercentage: UPower.displayDevice.percentage * 100
-	property real timeToEmpty: UPower.displayDevice.timeToEmpty
-	property real timeToFull: UPower.displayDevice.timeToFull
 
 	onDeviceStateChanged: battStatus = getBattStatus()
-	
 
 	function getBattStatus() {
 		if (deviceState === UPowerDeviceState.PendingCharge) return 2
