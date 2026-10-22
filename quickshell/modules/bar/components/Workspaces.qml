@@ -20,15 +20,21 @@ Row {
 		model: 7
 
 		delegate: Rectangle {
+			readonly property int wsId: index + 1
+			readonly property var wsObj: Hyprland.workspaces.values.find(w => w.id === wsId)
+			readonly property bool isFocused: wsObj?.focused ?? false
+			readonly property bool isUrgent: wsObj?.urgent ?? false
+
 			width: parent.height + 24
 			height: wsRoot.height
 			radius: 10
-			color: "transparent"
+			color: isUrgent ? "red" : "transparent"
 			border.width: 4
 			border.color: {
-				
-				if (Hyprland.focusedWorkspace && (index + 1 === Hyprland.focusedWorkspace.id)) {
+				if (isFocused) {
 					return Colors.primary
+				} else if (isUrgent){
+					return "red"
 				} else if (wsMouseArea.containsMouse) {
 					return Colors.secondary
 				} else {
@@ -42,8 +48,10 @@ Row {
 				font.family: kanjifont.name
 				font.pixelSize: parent.height * 0.6
 				color: 
-					if (Hyprland.focusedWorkspace && (index + 1 === Hyprland.focusedWorkspace.id)) {
+					if (isFocused) {
 						return Colors.primary
+					} else if (isUrgent){
+						return "white"
 					} else if (wsMouseArea.containsMouse) {
 						return Colors.secondary
 					} else {
@@ -56,7 +64,7 @@ Row {
 				anchors.fill: parent
 				hoverEnabled: true
 				cursorShape: Qt.PointingHandCursor
-				onClicked: Hyprland.dispatch("workspace " + (index + 1))
+				onClicked: Hyprland.dispatch(`hl.dsp.focus({workspace = ${wsId}})`)
 			}
 			Behavior on border.color {
 				ColorAnimation { duration: 300 }
